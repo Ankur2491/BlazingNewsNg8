@@ -92,7 +92,7 @@
                             <table style="border: 3px solid black;">
                                 <tr>
                                     <td style="border: 3px solid black;" *ngIf="news.show">
-                                        <a (click)="detailNews(news.url)">
+                                        <a href="{{news.url}}" target="_blank">
                                             <img src="{{news.urlToImage}}" height="150" width="100%"
                                                 alt="Image not Available">
                                         </a>
@@ -101,7 +101,7 @@
                             </table>
                             <font size="2" face="serif" color="grey">{{news.publishedAt}}</font>
                             <h6>
-                                <a ng-click="detailNews(news.url)">
+                                <a href="{{news.url}}" target="_blank">
                                     <b style="font-family: 'Droid Serif'; font-size: 17px">{{news.title}}:</b>
                                     <i
                                         style="color:maroon;font-family: 'Playfair Display'; font-size: 15px">{{news.description}}</i>

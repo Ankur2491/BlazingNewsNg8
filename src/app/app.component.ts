@@ -51,6 +51,14 @@ export class AppComponent implements OnInit {
   }
   getKeyNews(key: string){
     let news = this.keyNews[this.tabIndex];
-    this.newsSource = news[key];
+    let res = news[key];
+    for(var elem of res){
+      elem["show"] = false;
+      if(elem["urlToImage"].includes("./img")){
+        let arr = elem["urlToImage"].split("/");
+        elem["urlToImage"] = './assets/img/'+arr[2];
+      }
+    }
+    this.newsSource = res;
   }
 }
