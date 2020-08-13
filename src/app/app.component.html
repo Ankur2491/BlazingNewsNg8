@@ -1,21 +1,154 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<!-- Header -->
+<header id="header">
+    <!-- Center Header -->
+    <div id="center-header">
+        <div class="container">
+            <div class="header-logo">
+                <a href="#" class="logo">
+                    <img src="assets/img/logo.png" alt="">
+                </a>
+                <p>Developed by Ankur Sharma(
+                    <a href="https://www.linkedin.com/in/ankur-sharma-341446b1/">Contact Me </a>)</p>
+            </div>
+            <div class="header-ads">
+                <img class="center-block" src="assets/img/ad-2.jpg" alt="">
+            </div>
+        </div>
+    </div>
+    <!-- /Center Header -->
+</header>
+<!-- /Header -->
 
-<router-outlet></router-outlet>
+
+<!-- SECTION -->
+<div class="section">
+    <!-- CONTAINER -->
+    <div class="container-fluid">
+        <!-- ROW -->
+        <div class="row">
+            <!-- Main Column -->
+            <div class="col-md-12">
+                <!-- section title -->
+                <div id="mainNav" class="section-title">
+                    <h2 class="title">Trending News</h2>
+                    <!-- tab nav -->
+                    <ul class="nav nav-tabs pull-right" role="tablist">
+                        <li class="active">
+                            <a data-toggle="tab" (click)="getNews('all')">International</a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" (click)="getNews('general')">India</a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" (click)="getNews('business')">Business</a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" (click)="getNews('entertainment')">Entertainment</a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" (click)="getNews('health')">Health</a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" (click)="getNews('science')">Science</a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" (click)="getNews('technology')">Technology</a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" (click)="getNews('sport')">Sport</a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" (click)="getNews('offbeat')">Offbeat</a>
+                        </li>
+                    </ul>
+                    <!-- /tab nav -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 col-xs-4" *ngFor="let key of newsKeys">
+                <a class="badge badge-primary" (click)="getKeyNews(key)">{{key}}</a>
+            </div>
+        </div>
+
+    </div>
+    <hr />
+    <div align="center" *ngIf="loading">
+        <img src="assets/img/loading.gif" alt="Loading..." />
+    </div>
+    <!-- /section title -->
+    <!-- Tab content -->
+    <div id="all" class="tab-content">
+        <!-- tab1 -->
+        <div class="tab-pane fade in active">
+            <!-- row -->
+            <div class="container-fluid">
+                <div class="row" style="display:flex;flex-wrap:wrap;">
+                    <div class="col-md-3 col-sm-6" *ngFor="let news of newsSource" (deferLoad)="news.show = true">
+                        <div>
+                            <table style="border: 3px solid black;">
+                                <tr>
+                                    <td style="border: 3px solid black;" *ngIf="news.show">
+                                        <a (click)="detailNews(news.url)">
+                                            <img src="{{news.urlToImage}}" height="150" width="100%"
+                                                alt="Image not Available">
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                            <font size="2" face="serif" color="grey">{{news.publishedAt}}</font>
+                            <h6>
+                                <a ng-click="detailNews(news.url)">
+                                    <b style="font-family: 'Droid Serif'; font-size: 17px">{{news.title}}:</b>
+                                    <i
+                                        style="color:maroon;font-family: 'Playfair Display'; font-size: 15px">{{news.description}}</i>
+                                </a>
+                            </h6>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <!-- /ARTICLE -->
+        </div>
+    </div>
+    <!-- /row -->
+</div>
+<!-- /Main Column -->
+
+<!-- Tab content -->
+<!-- END OF TABS -->
+<!-- /ROW -->
+
+<!-- /CONTAINER -->
+<!-- /SECTION -->
+<!-- /FOOTER -->
+
+<!-- Back to top -->
+<div id="back-to-top"></div>
+<!-- Back to top -->
+<script>
+    $('#back-to-top').on("click", function () {
+        $('body,html').animate({
+            scrollTop: 0
+        }, 500);
+    });
+  /*
+    window.onscroll = function() {fixHeader()};
+    var navbar = document.getElementById("mainNav");
+    var sticky = navbar.offsetTop;
+    function fixHeader() {
+        if (window.pageYOffset >= sticky) {
+            navbar.classList.add("sticky")
+        } else {
+            navbar.classList.remove("sticky");
+        }
+    }
+    */
+</script>
