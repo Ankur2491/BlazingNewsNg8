@@ -6,59 +6,76 @@ import { HttpClient } from '@angular/common/http'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient) { }
   title = 'BlazingNews';
   newsSource: object;
   loading: boolean;
   newsKeys: Array<string>;
   keyNews: Array<object>;
   tabIndex: number;
-  refMap = {"all":0,"general":1,"business":2,"entertainment":3,"health":4,"science":5,"technology":6,"sport":7,"offbeat":8};
-  ngOnInit(){
-    this.http.get("https://blazingnews-api.herokuapp.com/all").subscribe((res: Array<object>)=>{
-      for(var elem of res){
+  sourceMappings = {
+    'all': 'International', 'general': 'India',
+    'business': 'Business', 'entertainment': 'Entertainment',
+    'health': 'Health', 'science': 'Science',
+    'technology': 'Technology', 'sport': 'Sports', 'offbeat': 'Offbeat'
+  }
+  sourcePlaceholder = this.sourceMappings.all;
+  source = 'all'
+  refMap = { "all": 0, "general": 1, "business": 2, "entertainment": 3, "health": 4, "science": 5, "technology": 6, "sport": 7, "offbeat": 8 };
+  ngOnInit() {
+    this.http.get("https://blazingnews-api.herokuapp.com/all").subscribe((res: Array<object>) => {
+      for (var elem of res) {
         elem["show"] = false;
-        if(elem["urlToImage"].includes("./img")){
+        if (elem["urlToImage"].includes("./img")) {
           let arr = elem["urlToImage"].split("/");
-          elem["urlToImage"] = './assets/img/'+arr[2];
+          elem["urlToImage"] = './assets/img/' + arr[2];
         }
       }
       this.newsSource = res;
     })
-    this.http.get("https://blazingnews-api.herokuapp.com/keyNews").subscribe((res:Array<object>)=>{
-      this.keyNews = res;
-      this.tabIndex = 0;
-      this.newsKeys = Object.keys(this.keyNews[this.tabIndex]);
-    })
+    this.fetchKeyNews(0);
   }
 
-  getNews(source){
+  getNews(source) {
     this.newsSource = null;
     this.loading = true;
     this.tabIndex = this.refMap[source];
+    this.sourcePlaceholder = this.sourceMappings[source];
+    this.source = source;
+    this.fetchKeyNews(this.refMap[source]);
     this.newsKeys = Object.keys(this.keyNews[this.tabIndex]);
-    this.http.get("https://blazingnews-api.herokuapp.com/"+source).subscribe((res: Array<object>)=>{
-      for(var elem of res){
+    this.http.get("https://blazingnews-api.herokuapp.com/" + source).subscribe((res: Array<object>) => {
+      for (var elem of res) {
         elem["show"] = false;
-        if(elem["urlToImage"].includes("./img")){
+        if (elem["urlToImage"].includes("./img")) {
           let arr = elem["urlToImage"].split("/");
-          elem["urlToImage"] = './assets/img/'+arr[2];
+          elem["urlToImage"] = './assets/img/' + arr[2];
         }
       }
       this.newsSource = res;
       this.loading = false;
     })
   }
-  getKeyNews(key: string){
+  getKeyNews(key: string) {
     let news = this.keyNews[this.tabIndex];
     let res = news[key];
-    for(var elem of res){
+    for (var elem of res) {
       elem["show"] = false;
-      if(elem["urlToImage"].includes("./img")){
+      if (elem["urlToImage"].includes("./img")) {
         let arr = elem["urlToImage"].split("/");
-        elem["urlToImage"] = './assets/img/'+arr[2];
+        elem["urlToImage"] = './assets/img/' + arr[2];
       }
     }
     this.newsSource = res;
+  }
+  fetchKeyNews(index) {
+    this.http.get("https://blazingnews-api.herokuapp.com/keyNews").subscribe((res: Array<object>) => {
+      this.keyNews = res;
+      this.tabIndex = index;
+      this.newsKeys = Object.keys(this.keyNews[this.tabIndex]);
+    })
+  }
+  refreshNews() {
+    this.getNews(this.source);
   }
 }

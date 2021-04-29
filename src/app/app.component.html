@@ -19,7 +19,6 @@
 </header>
 <!-- /Header -->
 
-
 <!-- SECTION -->
 <div class="section">
     <!-- CONTAINER -->
@@ -31,6 +30,7 @@
                 <!-- section title -->
                 <div id="mainNav" class="section-title">
                     <h2 class="title">Trending News</h2>
+                    <button type="button" class="btn btn-primary" (click)="refreshNews()">Refresh <b>{{sourcePlaceholder}}</b> news</button>
                     <!-- tab nav -->
                     <ul class="nav nav-tabs pull-right" role="tablist">
                         <li class="active">
