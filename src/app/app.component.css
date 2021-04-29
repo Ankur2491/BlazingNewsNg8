@@ -64,7 +64,7 @@ h5 {
 	font-size:15px;
 }
 
-a {
+/* a {
 	font-weight:400;
 	color: #07090c;
 }
@@ -74,7 +74,7 @@ a:focus{
 	color: #EF233C;
     text-decoration: none;
     outline: none;
-}
+} */
 
 ul,ol{
     margin: 0;
