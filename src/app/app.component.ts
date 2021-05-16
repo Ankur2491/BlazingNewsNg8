@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   newsKeys: Array<string>;
   keyNews: Array<object>;
   tabIndex: number;
+  backgroundImg = "";
   sourceMappings = {
     'all': 'International', 'general': 'India',
     'business': 'Business', 'entertainment': 'Entertainment',
@@ -32,6 +33,9 @@ export class AppComponent implements OnInit {
         }
       }
       this.newsSource = res;
+    })
+    this.http.get('https://blazingnews-api.herokuapp.com/backImg').subscribe(res=>{
+      this.backgroundImg = `https://www.bing.com${res['url']}`;
     })
     this.fetchKeyNews(0);
   }

@@ -1,18 +1,22 @@
 <!-- Header -->
+<div [ngStyle]="{'background-image': 'url(' + backgroundImg + ')'}" style="background-attachment: fixed;">
 <header id="header">
     <!-- Center Header -->
     <div id="center-header">
-        <div class="container">
+        <div class="container-fluid">
             <div class="header-logo">
-                <a href="#" class="logo">
+                <!-- <a href="#" class="logo">
                     <img src="assets/img/logo.png" alt="">
-                </a>
+                </a> -->
+                <h1 style="font-family: 'Times New Roman, Times, Serif';">Blazing News ["Just Plain Simple News..."]</h1>
                 <p>Developed by Ankur Sharma(
-                    <a href="https://www.linkedin.com/in/ankur-sharma-341446b1/">Contact Me </a>)</p>
+                    <a href="https://www.linkedin.com/in/ankur-sharma-341446b1/">Contact Me </a>)
+                </p>
             </div>
-            <div class="header-ads">
+            <!-- <div class="header-ads">
                 <img class="center-block" src="assets/img/ad-2.jpg" alt="">
-            </div>
+                <h3 style="font-family: 'Times New Roman, Times, Serif';">Just Plain Simple News...</h3>
+            </div> -->
         </div>
     </div>
     <!-- /Center Header -->
@@ -20,7 +24,7 @@
 <!-- /Header -->
 
 <!-- SECTION -->
-<div class="section">
+<div class="section" id="sample">
     <!-- CONTAINER -->
     <div class="container-fluid">
         <!-- ROW -->
@@ -62,7 +66,8 @@
                     </ul>
                     <!-- /tab nav -->
                 </div>
-                <button type="button" class="btn btn-primary" (click)="refreshNews()">Refresh <b>{{sourcePlaceholder}}</b> news</button>
+                <button type="button" class="btn btn-light" (click)="refreshNews()">Refresh <b>{{sourcePlaceholder}}</b>
+                    news</button>
 
             </div>
         </div>
@@ -76,20 +81,23 @@
         </div>
 
     </div>
-    <hr />
-    <div align="center" *ngIf="loading">
-        <img src="assets/img/loading.gif" alt="Loading..." />
-    </div>
+</div>
+<!-- <hr /> -->
+<div>
+    <!-- <div align="center" *ngIf="loading">
+        <img src="assets/img/loading-58.gif" alt="Loading..."/>
+    </div> -->
     <!-- /section title -->
     <!-- Tab content -->
     <div id="all" class="tab-content">
         <!-- tab1 -->
         <div class="tab-pane fade in active">
             <!-- row -->
+            <div class="section">
             <div class="container-fluid">
                 <div class="row" style="display:flex;flex-wrap:wrap;">
-                    <div class="col-md-3 col-sm-6" *ngFor="let news of newsSource" (deferLoad)="news.show = true">
-                        <div>
+                    <div class="col-md-3 col-sm-6" *ngFor="let news of newsSource" (deferLoad)="news.show = true" id="sample2">
+                        <!-- <div>
                             <table style="border: 3px solid black;">
                                 <tr>
                                     <td style="border: 3px solid black;" *ngIf="news.show">
@@ -108,12 +116,38 @@
                                         style="color:maroon;font-family: 'Playfair Display'; font-size: 15px">{{news.description}}</i>
                                 </a>
                             </h6>
+                        </div> -->
+             <!-- <div class="news-card">
+                 <a href="{{news.url}}" target="_blank" class="news-card__card-link"></a>
+                 <img src="{{news.urlToImage}}" alt="Image not Available" class="news-card__image">
+                 <div class="news-card__text-wrapper">
+                     <h2 class="news-card__title">{{news.title}}</h2>
+                     <div class="news-card__post-date">{{news.publishedAt}}</div>
+                     <div class="news-card__details-wrapper">
+                         <p class="news-card__excerpt">{{news.description}}</p>
+                         <a href="{{news.url}}" target="_blank" class="news-card__read-more">Read more <i class="fas faa-long-arrow-alt-right"></i></a>
+                     </div>
+                 </div>
+             </div> -->
+             <div style="border: 4px solid black;">
+                <div>
+                    <img height="150" width="100%" src="{{news.urlToImage}}" alt="Image Not Available">
+                    <div>
+                        <div style="background-color: white;"><strong>{{news.title}}</strong>
+                            <br/>
+                            <font size="2" face="serif" color="grey">{{news.publishedAt}}</font>
+                        <p>{{news.description}}...</p>
+                        <a class="moreLink" href="{{news.url}}" target="_blank">Read More</a>
                         </div>
+                    </div>
+                    </div>
+                    </div>
 
 
 
                     </div>
                 </div>
+            </div>
             </div>
             <hr />
             <!-- /ARTICLE -->
@@ -141,15 +175,16 @@
         }, 500);
     });
   /*
-    window.onscroll = function() {fixHeader()};
-    var navbar = document.getElementById("mainNav");
-    var sticky = navbar.offsetTop;
-    function fixHeader() {
-        if (window.pageYOffset >= sticky) {
-            navbar.classList.add("sticky")
-        } else {
-            navbar.classList.remove("sticky");
-        }
-    }
-    */
+      window.onscroll = function() {fixHeader()};
+      var navbar = document.getElementById("mainNav");
+      var sticky = navbar.offsetTop;
+      function fixHeader() {
+          if (window.pageYOffset >= sticky) {
+              navbar.classList.add("sticky")
+          } else {
+              navbar.classList.remove("sticky");
+          }
+      }
+      */
 </script>
+</div>
