@@ -39,12 +39,13 @@
         <div class="content">
             <div class="collumns">
                 <div class="collumn" *ngFor="let news of newsSource">
+                    <img class="media" src="{{news.urlToImage}}" alt="">
                     <div class="head"><span class="headline hl6">{{news.title}}</span>
                         <p><span class="headline hl8">{{news.source}}</span></p>
                         <p><span class="headline hl8">{{news.publishedAt}}</span></p>
-                        <figure class="figure">
-                            <img class="media" src="{{news.urlToImage}}" alt="">
-                        </figure>
+                        <!-- <figure class="figure"> -->
+                            
+                        <!-- </figure> -->
                     </div>
                     <p>{{news.description}}</p>
                     <a href="{{news.url}}" target="_blank">Read More...</a>
