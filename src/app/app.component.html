@@ -21,11 +21,16 @@
         </div>
 
         <div class="subhead">{{today | date}}</div>
-        <div class="subhead"><a (click)="getNews('all')">International</a> &nbsp;<a
-                (click)="getNews('general')">India</a> &nbsp;<a (click)="getNews('business')">Business</a>&nbsp;<a
-                (click)="getNews('entertainment')">Entertainment</a> &nbsp;<a (click)="getNews('health')">Health</a>
-            &nbsp;<a (click)="getNews('science')">Science</a> &nbsp;<a (click)="getNews('technology')">Technology</a>
-            &nbsp;<a (click)="getNews('sport')">Sport</a> &nbsp;<a (click)="getNews('offbeat')">Offbeat</a></div>
+        <div class="subhead"><button type="button" class="btn btn-link" (click)="getNews('all')">INTERNATIONAL</button>
+            <button type="button" class="btn btn-link" (click)="getNews('general')">INDIA</button><button type="button"
+                class="btn btn-link" (click)="getNews('business')">BUSINESS</button><button type="button"
+                class="btn btn-link" (click)="getNews('entertainment')">ENTERTAINMENT</button>
+            <button type="button" class="btn btn-link" (click)="getNews('health')">HEALTH</button>
+            <button type="button" class="btn btn-link" (click)="getNews('science')">SCIENCE</button>
+            <button type="button" class="btn btn-link" (click)="getNews('technology')">TECHNOLOGY</button>
+            <button type="button" class="btn btn-link" (click)="getNews('sport')">SPORT</button><button type="button"
+                class="btn btn-link" (click)="getNews('offbeat')">OFFBEAT</button>
+        </div>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-3 col-xs-4" *ngFor="let key of newsKeys">
@@ -34,7 +39,7 @@
             </div>
         </div>
     </div>
-    <hr/>
+    <hr />
     <div class="container">
         <button type="button" class="btn btn-light" (click)="refreshNews()">Refresh <b>{{sourcePlaceholder}}</b>
             news</button>
@@ -48,7 +53,7 @@
                         <p><span class="headline hl8">{{news.source}}</span></p>
                         <p><span class="headline hl8">{{news.publishedAt}}</span></p>
                         <!-- <figure class="figure"> -->
-                            
+
                         <!-- </figure> -->
                     </div>
                     <p>{{news.description}}</p>
