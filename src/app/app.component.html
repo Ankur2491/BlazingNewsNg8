@@ -14,7 +14,7 @@
         <div class="headerobjectswrapper">
             <!-- <div class="weatherforcastbox"><span style="font-style: italic;">Developed By: Ankur
                     Sharma</span><br><span></span></div> -->
-            <header>Blazing News</header>
+            <span><a href="/" class="mainHeader"><header>Blazing News</header></a></span>
             <p><span class="headline hl8">Developed By: Ankur Sharma(<a
                         href="https://www.linkedin.com/in/ankur-sharma-341446b1/" target="_blank">Contact Me</a>)</span>
             </p>
@@ -48,7 +48,7 @@
         <div class="content">
             <div class="collumns">
                 <div class="collumn" *ngFor="let news of newsSource">
-                    <img class="media" src="{{news.urlToImage}}" alt="">
+                    <span><a href="{{news.url}}" target="_blank"><img class="media" src="{{news.urlToImage}}" alt=""></a></span>
                     <div class="head"><span class="headline hl6">{{news.title}}</span>
                         <p><span class="headline hl8">{{news.source}}</span></p>
                         <p><span class="headline hl8">{{news.publishedAt}}</span></p>
