@@ -23,9 +23,12 @@ export class AppComponent implements OnInit {
   sourcePlaceholder = this.sourceMappings.all;
   source = 'all'
   refMap = { "all": 0, "general": 1, "business": 2, "entertainment": 3, "health": 4, "science": 5, "technology": 6, "sport": 7, "offbeat": 8 };
+  today: number = Date.now();
   ngOnInit() {
     this.http.get("https://blazingnews-api.herokuapp.com/all").subscribe((res: Array<object>) => {
       for (var elem of res) {
+        elem['source'] = elem['title'].substring(elem['title'].indexOf('(s'));
+        elem['title'] = elem['title'].substring(0,elem['title'].indexOf('(s'));
         elem["show"] = false;
         if (elem["urlToImage"].includes("./img")) {
           let arr = elem["urlToImage"].split("/");
@@ -50,6 +53,8 @@ export class AppComponent implements OnInit {
     this.newsKeys = Object.keys(this.keyNews[this.tabIndex]);
     this.http.get("https://blazingnews-api.herokuapp.com/" + source).subscribe((res: Array<object>) => {
       for (var elem of res) {
+        elem['source'] = elem['title'].substring(elem['title'].indexOf('(s'));
+        elem['title'] = elem['title'].substring(0,elem['title'].indexOf('(s'));
         elem["show"] = false;
         if (elem["urlToImage"].includes("./img")) {
           let arr = elem["urlToImage"].split("/");

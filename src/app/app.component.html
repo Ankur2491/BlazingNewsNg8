@@ -1,190 +1,133 @@
-<!-- Header -->
-<div [ngStyle]="{'background-image': 'url(' + backgroundImg + ')'}" style="background-attachment: fixed;">
-<header id="header">
-    <!-- Center Header -->
-    <div id="center-header">
+<html>
+
+<head>
+    <link
+        href='https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900,400italic,700italic,900italic|Droid+Serif:400,700,400italic,700italic'
+        rel='stylesheet' type='text/css'>
+    <!-- <link rel="stylesheet" href="styles/newspaper.css"> -->
+    <meta name="viewport" content="width=device-width">
+
+</head>
+
+<body>
+    <div class="head">
+        <div class="headerobjectswrapper">
+            <!-- <div class="weatherforcastbox"><span style="font-style: italic;">Developed By: Ankur
+                    Sharma</span><br><span></span></div> -->
+            <header>Blazing News</header>
+            <p><span class="headline hl8">Developed By: Ankur Sharma(<a
+                        href="https://www.linkedin.com/in/ankur-sharma-341446b1/" target="_blank">Contact Me</a>)</span>
+            </p>
+        </div>
+
+        <div class="subhead">{{today | date}}</div>
+        <div class="subhead"><a (click)="getNews('all')">International</a> &nbsp;<a
+                (click)="getNews('general')">India</a> &nbsp;<a (click)="getNews('business')">Business</a>&nbsp;<a
+                (click)="getNews('entertainment')">Entertainment</a> &nbsp;<a (click)="getNews('health')">Health</a>
+            &nbsp;<a (click)="getNews('science')">Science</a> &nbsp;<a (click)="getNews('technology')">Technology</a>
+            &nbsp;<a (click)="getNews('sport')">Sport</a> &nbsp;<a (click)="getNews('offbeat')">Offbeat</a></div>
         <div class="container-fluid">
-            <div class="header-logo">
-                <!-- <a href="#" class="logo">
-                    <img src="assets/img/logo.png" alt="">
-                </a> -->
-                <h1 style="font-family: 'Times New Roman, Times, Serif';">Blazing News ["Just Plain Simple News..."]</h1>
-                <p>Developed by Ankur Sharma(
-                    <a href="https://www.linkedin.com/in/ankur-sharma-341446b1/">Contact Me </a>)
-                </p>
+            <div class="row">
+                <div class="col-md-3 col-xs-4" *ngFor="let key of newsKeys">
+                    <a class="badge badge-primary" (click)="getKeyNews(key)">{{key}}</a>
+                </div>
             </div>
-            <!-- <div class="header-ads">
-                <img class="center-block" src="assets/img/ad-2.jpg" alt="">
-                <h3 style="font-family: 'Times New Roman, Times, Serif';">Just Plain Simple News...</h3>
+
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="content">
+            <div class="collumns">
+                <div class="collumn" *ngFor="let news of newsSource">
+                    <div class="head"><span class="headline hl6">{{news.title}}</span>
+                        <p><span class="headline hl8">{{news.source}}</span></p>
+                        <p><span class="headline hl8">{{news.publishedAt}}</span></p>
+                        <figure class="figure">
+                            <img class="media" src="{{news.urlToImage}}" alt="">
+                        </figure>
+                    </div>
+                    <p>{{news.description}}</p>
+                    <a href="{{news.url}}" target="_blank">Read More...</a>
+                </div>
+                <!-- <div class="collumn">
+                <div class="head"><span class="headline hl5">Give people courage</span>
+                    <p><span class="headline hl6">The crowd seemed to grow</span></p>
+                </div>
+                <p>The sunset faded to twilight before anything further happened. The crowd far away on the left,
+                    towards Woking, seemed to grow, and I heard now a faint murmur from it. The little knot of people
+                    towards Chobham dispersed. There was scarcely an intimation of movement from the pit.</p>
+                <figure class="figure">
+                    <img class="media" src="http://i.giphy.com/PW7MoTD2d9pJK.gif" alt="">
+                    <figcaption class="figcaption">Hermine hoping for courage.</figcaption>
+                </figure>
+
+                <p>It was this, as much as anything, that gave people courage, and I suppose the new arrivals from
+                    Woking also helped to restore confidence. At any rate, as the dusk came on a slow, intermittent
+                    movement upon the sand pits began, a movement that seemed to gather force as the stillness of the
+                    evening about the cylinder remained unbroken. Vertical black figures in twos and threes would
+                    advance, stop, watch, and advance again, spreading out as they did so in a thin irregular crescent
+                    that promised to enclose the pit in its attenuated horns. I, too, on my side began to move towards
+                    the pit.</p>
+
+                <p>Then I saw some cabmen and others had walked boldly into the sand pits, and heard the clatter of
+                    hoofs and the gride of wheels. I saw a lad trundling off the barrow of apples. And then, within
+                    thirty yards of the pit, advancing from the direction of Horsell, I noted a little black knot of
+                    men, the foremost of whom was waving a white flag.</p>
+
             </div> -->
-        </div>
-    </div>
-    <!-- /Center Header -->
-</header>
-<!-- /Header -->
-
-<!-- SECTION -->
-<div class="section" id="sample">
-    <!-- CONTAINER -->
-    <div class="container-fluid">
-        <!-- ROW -->
-        <div class="row">
-            <!-- Main Column -->
-            <div class="col-md-12">
-                <!-- section title -->
-                <div id="mainNav" class="section-title">
-                    <h2 class="title">Trending News</h2>
-                    <!-- tab nav -->
-                    <ul class="nav nav-tabs pull-right" role="tablist">
-                        <li class="active">
-                            <a data-toggle="tab" (click)="getNews('all')">International</a>
-                        </li>
-                        <li>
-                            <a data-toggle="tab" (click)="getNews('general')">India</a>
-                        </li>
-                        <li>
-                            <a data-toggle="tab" (click)="getNews('business')">Business</a>
-                        </li>
-                        <li>
-                            <a data-toggle="tab" (click)="getNews('entertainment')">Entertainment</a>
-                        </li>
-                        <li>
-                            <a data-toggle="tab" (click)="getNews('health')">Health</a>
-                        </li>
-                        <li>
-                            <a data-toggle="tab" (click)="getNews('science')">Science</a>
-                        </li>
-                        <li>
-                            <a data-toggle="tab" (click)="getNews('technology')">Technology</a>
-                        </li>
-                        <li>
-                            <a data-toggle="tab" (click)="getNews('sport')">Sport</a>
-                        </li>
-                        <li>
-                            <a data-toggle="tab" (click)="getNews('offbeat')">Offbeat</a>
-                        </li>
-                    </ul>
-                    <!-- /tab nav -->
+                <!-- <div class="collumn">
+                <div class="head"><span class="headline hl1">May the Force be with you</span>
+                    <p><span class="headline hl2">Let go your conscious self and act on instinct</span></p>
                 </div>
-                <button type="button" class="btn btn-light" (click)="refreshNews()">Refresh <b>{{sourcePlaceholder}}</b>
-                    news</button>
-
-            </div>
-        </div>
-    </div>
-    <br />
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-3 col-xs-4" *ngFor="let key of newsKeys">
-                <a class="badge badge-primary" (click)="getKeyNews(key)">{{key}}</a>
-            </div>
-        </div>
-
-    </div>
-</div>
-<!-- <hr /> -->
-<div>
-    <!-- <div align="center" *ngIf="loading">
-        <img src="assets/img/loading-58.gif" alt="Loading..."/>
-    </div> -->
-    <!-- /section title -->
-    <!-- Tab content -->
-    <div id="all" class="tab-content">
-        <!-- tab1 -->
-        <div class="tab-pane fade in active">
-            <!-- row -->
-            <div class="section">
-            <div class="container-fluid">
-                <div class="row" style="display:flex;flex-wrap:wrap;">
-                    <div class="col-md-3 col-sm-6" *ngFor="let news of newsSource" (deferLoad)="news.show = true" id="sample2">
-                        <!-- <div>
-                            <table style="border: 3px solid black;">
-                                <tr>
-                                    <td style="border: 3px solid black;" *ngIf="news.show">
-                                        <a href="{{news.url}}" target="_blank">
-                                            <img src="{{news.urlToImage}}" height="150" width="100%"
-                                                alt="Image not Available">
-                                        </a>
-                                    </td>
-                                </tr>
-                            </table>
-                            <font size="2" face="serif" color="grey">{{news.publishedAt}}</font>
-                            <h6>
-                                <a href="{{news.url}}" target="_blank">
-                                    <b style="font-family: 'Droid Serif'; font-size: 17px">{{news.title}}:</b>
-                                    <i
-                                        style="color:maroon;font-family: 'Playfair Display'; font-size: 15px">{{news.description}}</i>
-                                </a>
-                            </h6>
-                        </div> -->
-             <!-- <div class="news-card">
-                 <a href="{{news.url}}" target="_blank" class="news-card__card-link"></a>
-                 <img src="{{news.urlToImage}}" alt="Image not Available" class="news-card__image">
-                 <div class="news-card__text-wrapper">
-                     <h2 class="news-card__title">{{news.title}}</h2>
-                     <div class="news-card__post-date">{{news.publishedAt}}</div>
-                     <div class="news-card__details-wrapper">
-                         <p class="news-card__excerpt">{{news.description}}</p>
-                         <a href="{{news.url}}" target="_blank" class="news-card__read-more">Read more <i class="fas faa-long-arrow-alt-right"></i></a>
-                     </div>
-                 </div>
-             </div> -->
-             <div style="border: 4px solid black;">
-                <div>
-                    <img height="150" width="100%" src="{{news.urlToImage}}" alt="Image Not Available">
-                    <div>
-                        <div style="background-color: white;"><strong>{{news.title}}</strong>
-                            <br/>
-                            <font size="2" face="serif" color="grey">{{news.publishedAt}}</font>
-                        <p>{{news.description}}...</p>
-                        <a class="moreLink" href="{{news.url}}" target="_blank">Read More</a>
-                        </div>
-                    </div>
-                    </div>
-                    </div>
-
-
-
-                    </div>
+                <p>Partially, but it also obeys your commands. Hey, Luke! May the Force be with you. I have traced the
+                    Rebel spies to her. Now she is my only link to finding their secret base.</p>
+                <figure class="figure">
+                    <img class="media" src="http://i.giphy.com/4fDWVPMoSyhgc.gif" alt="">
+                    <figcaption class="figcaption">"This time, let go your conscious self and act on instinct."
+                    </figcaption>
+                </figure>
+                <p>Leave that to me. Send a distress signal, and inform the Senate that all on board were killed. <span
+                        class="citation">"Don't under&shy;estimate the Force. I suggest you try it again, Luke."</span>
+                    This time, let go your conscious self and act on instinct. In my experience, there is no such thing
+                    as luck. You're all clear, kid. Let's blow this thing and go home!</p>
+                <p>You don't believe in the Force, do you? Partially, but it also obeys your commands. The plans you
+                    refer to will soon be back in our hands. As you wish.</p>
+            </div> -->
+                <!-- <div class="collumn">
+                <div class="head"><span class="headline hl3">The buzz of the little world </span>
+                    <p><span class="headline hl4">A thousand unknown plants</span></p>
                 </div>
+                <p>I should be incapable of drawing a single stroke at the present moment; and yet I feel that I never
+                    was a greater artist than now. When, while the lovely valley teems with vapour around me, and the
+                    meridian sun strikes the upper surface of the impenetrable foliage of my trees, and but a few stray
+                    gleams steal into the inner sanctuary, I throw myself down among the tall grass by the trickling
+                    stream; and, as I lie close to the earth, a thousand unknown plants are noticed by me: when I hear
+                    the buzz of the little world among the stalks, and grow familiar with the countless indescribable
+                    forms of the insects and flies, then I feel the presence of the Almighty, who formed us in his own
+                    image, and the breath</p>
+            </div> -->
+                <!-- <div class="collumn">
+                <div class="head"><span class="headline hl1">It wasn't a dream </span>
+                    <p><span class="headline hl4">by FRANZ KAFKA</span></p>
+                </div>
+                <p>One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed
+                    into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could
+                    see his brown belly, slightly domed and divided by arches into stiff sections. The bedding was
+                    hardly able to cover it and seemed ready to slide off any moment. </p>
+
+                <p>His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he
+                    looked. "What's happened to me?" he thought. It wasn't a dream. His room, a proper human room
+                    although a little too small, lay peacefully between its four familiar walls. A collection of textile
+                    samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a
+                    picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame.
+                    It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff
+                    that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the
+                    window at the dull weather. </p>
+            </div> -->
             </div>
-            </div>
-            <hr />
-            <!-- /ARTICLE -->
         </div>
     </div>
-    <!-- /row -->
-</div>
-<!-- /Main Column -->
 
-<!-- Tab content -->
-<!-- END OF TABS -->
-<!-- /ROW -->
+</body>
 
-<!-- /CONTAINER -->
-<!-- /SECTION -->
-<!-- /FOOTER -->
-
-<!-- Back to top -->
-<div id="back-to-top"></div>
-<!-- Back to top -->
-<script>
-    $('#back-to-top').on("click", function () {
-        $('body,html').animate({
-            scrollTop: 0
-        }, 500);
-    });
-  /*
-      window.onscroll = function() {fixHeader()};
-      var navbar = document.getElementById("mainNav");
-      var sticky = navbar.offsetTop;
-      function fixHeader() {
-          if (window.pageYOffset >= sticky) {
-              navbar.classList.add("sticky")
-          } else {
-              navbar.classList.remove("sticky");
-          }
-      }
-      */
-</script>
-</div>
+</html>
