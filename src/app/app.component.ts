@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,6 +15,11 @@ export class AppComponent implements OnInit {
   tabIndex: number;
   todaysTime;
   backgroundImg = "";
+  quoteObj = {'quote': '','author': ''};
+  jokeObj = {'joke': ''};
+  showKeyNews = true
+  showQuote = false
+  showJoke = false
   sourceMappings = {
     'all': 'International', 'general': 'India',
     'business': 'Business', 'entertainment': 'Entertainment',
@@ -44,10 +49,11 @@ export class AppComponent implements OnInit {
     this.fetchKeyNews(0);
     setInterval(()=>{
       this.todaysTime = Date.now();
-    },1000)
+    },10)
   }
 
   getNews(source) {
+    this.showKeyNews = true;
     this.newsSource = null;
     this.loading = true;
     this.tabIndex = this.refMap[source];
@@ -90,5 +96,28 @@ export class AppComponent implements OnInit {
   }
   refreshNews() {
     this.getNews(this.source);
+  }
+
+  getQuote(){
+    this.showQuote = true
+    this.showJoke = false
+    this.showKeyNews = false;
+    this.newsSource = null;
+    this.http.get('https://favqs.com/api/qotd').subscribe(data=>{
+      this.quoteObj.quote = data['quote']['body']
+      this.quoteObj.author = data['quote']['author']
+      console.log(this.quoteObj)
+    })
+  }
+
+  getJoke(){
+    this.showQuote = false
+    this.showJoke = true
+    this.showKeyNews = false
+    this.newsSource = null
+    const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+    this.http.get('https://icanhazdadjoke.com/',{headers: headers}).subscribe(data=>{
+     this.jokeObj.joke = data['joke']
+    })
   }
 }
