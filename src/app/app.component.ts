@@ -115,8 +115,7 @@ export class AppComponent implements OnInit {
     this.showJoke = true
     this.showKeyNews = false
     this.newsSource = null
-    const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-    this.http.get('https://icanhazdadjoke.com/',{headers: headers}).subscribe(data=>{
+    this.http.get('https://blazingnews-api.herokuapp.com/joke').subscribe(data=>{
      this.jokeObj.joke = data['joke']
     })
   }
