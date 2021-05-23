@@ -47,6 +47,9 @@
     <div class="container-fluid" align="center">
         <div class="content">
             <div class="collumns">
+                <div class="collumn" *ngIf="newsSource == null">
+                    <h3>Loading...</h3>
+                </div>
                 <div class="collumn" *ngFor="let news of newsSource">
                     <span><a href="{{news.url}}" target="_blank"><img class="media" src="{{news.urlToImage}}" alt=""></a></span>
                     <div class="head"><span class="headline hl6">{{news.title}}</span>
