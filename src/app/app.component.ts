@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   newsKeys: Array<string>;
   keyNews: Array<object>;
   tabIndex: number;
+  todaysTime;
   backgroundImg = "";
   sourceMappings = {
     'all': 'International', 'general': 'India',
@@ -41,6 +42,9 @@ export class AppComponent implements OnInit {
       this.backgroundImg = `https://www.bing.com${res['url']}`;
     })
     this.fetchKeyNews(0);
+    setInterval(()=>{
+      this.todaysTime = Date.now();
+    },1000)
   }
 
   getNews(source) {

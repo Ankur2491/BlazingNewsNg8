@@ -20,7 +20,7 @@
             </p>
         </div>
 
-        <div class="subhead">{{today | date}}</div>
+        <div class="subhead">{{todaysTime | date:'medium'}}</div>
         <div class="subhead"><button type="button" class="btn btn-link" (click)="getNews('all')">INTERNATIONAL</button>
             <button type="button" class="btn btn-link" (click)="getNews('general')">INDIA</button><button type="button"
                 class="btn btn-link" (click)="getNews('business')">BUSINESS</button><button type="button"
