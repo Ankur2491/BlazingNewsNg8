@@ -282,3 +282,10 @@ p{
 .mainHeader{
 color: #333;
 }
+
+.animated {
+    visibility: visible !important;
+}
+.hide-on-init {
+    visibility: hidden;
+}

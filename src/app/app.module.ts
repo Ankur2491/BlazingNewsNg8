@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DeferLoadModule } from '@trademe/ng-defer-load';
+import { AnimateOnScrollModule } from 'ng2-animate-on-scroll';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { DeferLoadModule } from '@trademe/ng-defer-load';
     BrowserModule,
     DeferLoadModule,
     HttpClientModule,
-    AppRoutingModule
+    FormsModule,
+    AppRoutingModule,
+    AnimateOnScrollModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
