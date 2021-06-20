@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -21,7 +22,7 @@ export class AppComponent implements OnInit {
   showQuote = false
   showJoke = false
   newsSrcBkp;
-  searchKey='';
+  searchKey = '';
   sourceMappings = {
     'all': 'International', 'general': 'India',
     'business': 'Business', 'entertainment': 'Entertainment',
@@ -39,8 +40,15 @@ export class AppComponent implements OnInit {
         elem['title'] = elem['title'].substring(0, elem['title'].indexOf('(s'));
         elem["show"] = false;
         if (elem["urlToImage"].includes("./img")) {
-          let arr = elem["urlToImage"].split("/");
-          elem["urlToImage"] = './assets/img/' + arr[2];
+          this.http.post('https://hnews-image.herokuapp.com/image', { 'url': elem['url'] }).subscribe(data => {
+            if (data['lead_image_url']) {
+              elem['urlToImage'] = data['lead_image_url']
+            }
+            else {
+              let arr = elem["urlToImage"].split("/");
+              elem["urlToImage"] = './assets/img/' + arr[2];
+            }
+          })
         }
       }
       this.newsSource = res;
@@ -71,8 +79,15 @@ export class AppComponent implements OnInit {
         elem['title'] = elem['title'].substring(0, elem['title'].indexOf('(s'));
         elem["show"] = false;
         if (elem["urlToImage"].includes("./img")) {
-          let arr = elem["urlToImage"].split("/");
-          elem["urlToImage"] = './assets/img/' + arr[2];
+          this.http.post('https://hnews-image.herokuapp.com/image', { 'url': elem['url'] }).subscribe(data => {
+            if (data['lead_image_url']) {
+              elem['urlToImage'] = data['lead_image_url']
+            }
+            else {
+              let arr = elem["urlToImage"].split("/");
+              elem["urlToImage"] = './assets/img/' + arr[2];
+            }
+          })
         }
       }
       this.newsSource = res;
@@ -86,8 +101,15 @@ export class AppComponent implements OnInit {
     for (var elem of res) {
       elem["show"] = false;
       if (elem["urlToImage"].includes("./img")) {
-        let arr = elem["urlToImage"].split("/");
-        elem["urlToImage"] = './assets/img/' + arr[2];
+        this.http.post('https://hnews-image.herokuapp.com/image', { 'url': elem['url'] }).subscribe(data => {
+          if (data['lead_image_url']) {
+            elem['urlToImage'] = data['lead_image_url']
+          }
+          else {
+            let arr = elem["urlToImage"].split("/");
+            elem["urlToImage"] = './assets/img/' + arr[2];
+          }
+        })
       }
     }
     this.newsSource = res;
@@ -126,7 +148,7 @@ export class AppComponent implements OnInit {
   }
   searchKeyword(event) {
     let searchItem = event.target.value.toLowerCase();
-    this.newsSource = this.newsSrcBkp.filter((item=>{
+    this.newsSource = this.newsSrcBkp.filter((item => {
       return item.title.toLowerCase().includes(searchItem)
     }))
   }
