@@ -9,19 +9,21 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 export class AppComponent implements OnInit {
   constructor(private http: HttpClient) { }
   title = 'BlazingNews';
-  newsSource: object;
+  newsSource = [];
   loading: boolean;
   newsKeys: Array<string>;
   keyNews: Array<object>;
   tabIndex: number;
   todaysTime;
+  indicator = 'all';
+  keyNewsIndicator = false;
   backgroundImg = "";
   quoteObj = { 'quote': '', 'author': '' };
   jokeObj = { 'joke': '' };
   showKeyNews = true
   showQuote = false
   showJoke = false
-  newsSrcBkp;
+  newsSrcBkp = [];
   searchKey = '';
   sourceMappings = {
     'all': 'International', 'general': 'India',
@@ -34,25 +36,15 @@ export class AppComponent implements OnInit {
   refMap = { "all": 0, "general": 1, "business": 2, "entertainment": 3, "health": 4, "science": 5, "technology": 6, "sport": 7, "offbeat": 8 };
   today: number = Date.now();
   ngOnInit() {
-    this.http.get("https://blazingnews-api.herokuapp.com/all").subscribe((res: Array<object>) => {
+    this.http.get("https://blazingnews-api.herokuapp.com/all").subscribe(async (res: Array<object>) => {
       for (var elem of res) {
         elem['source'] = elem['title'].substring(elem['title'].indexOf('(s'));
         elem['title'] = elem['title'].substring(0, elem['title'].indexOf('(s'));
         elem["show"] = false;
-        if (elem["urlToImage"].includes("./img")) {
-          this.http.post('https://hnews-image.herokuapp.com/image', { 'url': elem['url'] }).subscribe(data => {
-            if (data['lead_image_url']) {
-              elem['urlToImage'] = data['lead_image_url']
-            }
-            else {
-              let arr = elem["urlToImage"].split("/");
-              elem["urlToImage"] = './assets/img/' + arr[2];
-            }
-          })
-        }
       }
-      this.newsSource = res;
-      this.newsSrcBkp = res;
+          this.newsSource = res;
+          this.newsSrcBkp = res;
+        
     })
     this.http.get('https://blazingnews-api.herokuapp.com/backImg').subscribe(res => {
       this.backgroundImg = `https://www.bing.com${res['url']}`;
@@ -64,8 +56,11 @@ export class AppComponent implements OnInit {
   }
 
   getNews(source) {
+    this.keyNewsIndicator = false;
+    this.indicator = source;
     this.showKeyNews = true;
-    this.newsSource = null;
+    this.newsSource = [];
+    this.newsSrcBkp = [];
     this.loading = true;
     this.searchKey = '';
     this.tabIndex = this.refMap[source];
@@ -73,46 +68,47 @@ export class AppComponent implements OnInit {
     this.source = source;
     this.fetchKeyNews(this.refMap[source]);
     this.newsKeys = Object.keys(this.keyNews[this.tabIndex]);
-    this.http.get("https://blazingnews-api.herokuapp.com/" + source).subscribe((res: Array<object>) => {
+    console.log(this.newsSource);
+    this.http.get("https://blazingnews-api.herokuapp.com/" + source).subscribe(async (res: Array<object>) => {
       for (var elem of res) {
         elem['source'] = elem['title'].substring(elem['title'].indexOf('(s'));
         elem['title'] = elem['title'].substring(0, elem['title'].indexOf('(s'));
         elem["show"] = false;
-        if (elem["urlToImage"].includes("./img")) {
-          this.http.post('https://hnews-image.herokuapp.com/image', { 'url': elem['url'] }).subscribe(data => {
-            if (data['lead_image_url']) {
-              elem['urlToImage'] = data['lead_image_url']
-            }
-            else {
-              let arr = elem["urlToImage"].split("/");
-              elem["urlToImage"] = './assets/img/' + arr[2];
-            }
-          })
-        }
+        // if (elem["urlToImage"].includes("./img")) {
+        //   let data = await this.getImage(elem['url'], 2);
+        //   if (data['lead_image_url']) {
+        //     elem['urlToImage'] = data['lead_image_url']
+        //   }
+        //   else {
+        //     let arr = elem["urlToImage"].split("/");
+        //     elem["urlToImage"] = './assets/img/' + arr[2];
+        //   }
+        // }
       }
       this.newsSource = res;
       this.newsSrcBkp = res;
       this.loading = false;
     })
   }
-  getKeyNews(key: string) {
+  async getKeyNews(key: string) {
+    this.keyNewsIndicator = true;
     let news = this.keyNews[this.tabIndex];
     let res = news[key];
+    this.newsSource = [];
     for (var elem of res) {
       elem["show"] = false;
       if (elem["urlToImage"].includes("./img")) {
-        this.http.post('https://hnews-image.herokuapp.com/image', { 'url': elem['url'] }).subscribe(data => {
-          if (data['lead_image_url']) {
-            elem['urlToImage'] = data['lead_image_url']
-          }
-          else {
-            let arr = elem["urlToImage"].split("/");
-            elem["urlToImage"] = './assets/img/' + arr[2];
-          }
-        })
+        let data = await this.getImage(elem['url'], 3);
+        if (data['lead_image_url']) {
+          elem['urlToImage'] = data['lead_image_url']
+        }
+        else {
+          let arr = elem["urlToImage"].split("/");
+          elem["urlToImage"] = './assets/img/' + arr[2];
+        }
       }
+      this.newsSource.push(elem)
     }
-    this.newsSource = res;
   }
   fetchKeyNews(index) {
     this.http.get("https://blazingnews-api.herokuapp.com/keyNews").subscribe((res: Array<object>) => {
@@ -151,5 +147,11 @@ export class AppComponent implements OnInit {
     this.newsSource = this.newsSrcBkp.filter((item => {
       return item.title.toLowerCase().includes(searchItem)
     }))
+  }
+
+
+  getImage(url: string, x): Promise<any> {
+    console.log(x);
+    return this.http.post('https://hnews-image.herokuapp.com/image', { 'url': url }).toPromise();
   }
 }
