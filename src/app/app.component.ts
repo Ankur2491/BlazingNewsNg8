@@ -24,6 +24,7 @@ export class AppComponent implements OnInit {
   showQuote = false
   showJoke = false
   newsSrcBkp;
+  imageMap = {};
   searchKey = '';
   sourceMappings = {
     'all': 'International', 'general': 'India',
@@ -44,6 +45,11 @@ export class AppComponent implements OnInit {
         if (elem["urlToImage"].includes("./img")) {
           let arr = elem["urlToImage"].split("/");
           elem["urlToImage"] = './assets/img/' + arr[2];
+          let x = elem['url'].replaceAll(':','_');
+          x = x.replaceAll('#','_');
+          x = x.replaceAll('=','_');
+          // console.log(x.replaceAll('\/','_'));
+          elem['urlToImage'] = `https://ik.imagekit.io/ap63okuxezn/images/`+x.replaceAll('\/','_');
         }
       }
       this.newsSource = res;
@@ -79,6 +85,10 @@ export class AppComponent implements OnInit {
         if (elem["urlToImage"].includes("./img")) {
           let arr = elem["urlToImage"].split("/");
           elem["urlToImage"] = './assets/img/' + arr[2];
+          let x = elem['url'].replace(':','_');
+          x = x.replaceAll('#','_');
+          x = x.replaceAll('=','_');
+          elem['urlToImage'] = `https://ik.imagekit.io/ap63okuxezn/images/`+x.replaceAll('\/','_');
 
         }
       }
@@ -98,10 +108,10 @@ export class AppComponent implements OnInit {
         let arr = elem["urlToImage"].split("/");
         elem["urlToImage"] = './assets/img/' + arr[2];
       }
-      }
-      this.newsSource = res;
     }
-  
+    this.newsSource = res;
+  }
+
   fetchKeyNews(index) {
     this.http.get("https://blazingnews-api.herokuapp.com/keyNews").subscribe((res: Array<object>) => {
       this.keyNews = res;

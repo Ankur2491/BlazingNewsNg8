@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div class="head">
+    <div class="head" id="news_top">
         <div class="headerobjectswrapper">
             <!-- <div class="weatherforcastbox"><span style="font-style: italic;">Developed By: Ankur
                     Sharma</span><br><span></span></div> -->
@@ -49,8 +49,8 @@
             news</button>
         <div class="row">
             <div class="col-md-3">
-                <br/>
-                <input type="text" class="form-control" placeholder="search for a keyword" [(ngModel)] = "searchKey"
+                <br />
+                <input type="text" class="form-control" placeholder="search for a keyword" [(ngModel)]="searchKey"
                     (keyup)="searchKeyword($event)" />
             </div>
         </div>
@@ -63,8 +63,8 @@
                     <h3>Loading...</h3>
                 </div>
                 <div class="collumn" *ngFor="let news of newsSource">
-                    <span><a href="{{news.url}}" target="_blank"><img class="media" src="{{news.urlToImage}}"
-                                alt=""></a></span>
+                    <div><span><a href="{{news.url}}" target="_blank"><img class="media" src="{{news.urlToImage}}"
+                               onerror="this.src='./assets/img/Image_not_available.png'"></a></span></div>
                     <div class="head"><span class="headline hl6">{{news.title}}</span>
                         <p><span class="headline hl8">{{news.source}}</span></p>
                         <p><span class="headline hl8">{{news.publishedAt}}</span></p>
