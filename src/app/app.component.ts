@@ -42,14 +42,14 @@ export class AppComponent implements OnInit {
         elem['source'] = elem['title'].substring(elem['title'].indexOf('(s'));
         elem['title'] = elem['title'].substring(0, elem['title'].indexOf('(s'));
         elem["show"] = false;
-        if (elem["urlToImage"].includes("./img")) {
+        if (elem["urlToImage"] && elem["urlToImage"].includes("./img")) {
           let arr = elem["urlToImage"].split("/");
           elem["urlToImage"] = './assets/img/' + arr[2];
-          let x = elem['url'].replaceAll(':','_');
-          x = x.replaceAll('#','_');
-          x = x.replaceAll('=','_');
+          let x = elem['url'].replaceAll(':', '_');
+          x = x.replaceAll('#', '_');
+          x = x.replaceAll('=', '_');
           // console.log(x.replaceAll('\/','_'));
-          elem['urlToImage'] = `https://ik.imagekit.io/ap63okuxezn/images/`+x.replaceAll('\/','_');
+          elem['urlToImage'] = `https://ik.imagekit.io/ap63okuxezn/images/` + x.replaceAll('\/', '_');
         }
       }
       this.newsSource = res;
@@ -82,13 +82,13 @@ export class AppComponent implements OnInit {
         elem['source'] = elem['title'].substring(elem['title'].indexOf('(s'));
         elem['title'] = elem['title'].substring(0, elem['title'].indexOf('(s'));
         elem["show"] = false;
-        if (elem["urlToImage"].includes("./img")) {
+        if (elem["urlToImage"] && elem["urlToImage"].includes("./img")) {
           let arr = elem["urlToImage"].split("/");
           elem["urlToImage"] = './assets/img/' + arr[2];
-          let x = elem['url'].replace(':','_');
-          x = x.replaceAll('#','_');
-          x = x.replaceAll('=','_');
-          elem['urlToImage'] = `https://ik.imagekit.io/ap63okuxezn/images/`+x.replaceAll('\/','_');
+          let x = elem['url'].replace(':', '_');
+          x = x.replaceAll('#', '_');
+          x = x.replaceAll('=', '_');
+          elem['urlToImage'] = `https://ik.imagekit.io/ap63okuxezn/images/` + x.replaceAll('\/', '_');
 
         }
       }
@@ -104,7 +104,7 @@ export class AppComponent implements OnInit {
     this.newsSource = [];
     for (var elem of res) {
       elem["show"] = false;
-      if (elem["urlToImage"].includes("./img")) {
+      if (elem["urlToImage"] && elem["urlToImage"].includes("./img")) {
         let arr = elem["urlToImage"].split("/");
         elem["urlToImage"] = './assets/img/' + arr[2];
       }
