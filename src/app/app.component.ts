@@ -107,6 +107,10 @@ export class AppComponent implements OnInit {
       if (elem["urlToImage"] && elem["urlToImage"].includes("./img")) {
         let arr = elem["urlToImage"].split("/");
         elem["urlToImage"] = './assets/img/' + arr[2];
+        let x = elem['url'].replace(':', '_');
+        x = x.replaceAll('#', '_');
+        x = x.replaceAll('=', '_');
+        elem['urlToImage'] = `https://ik.imagekit.io/ap63okuxezn/images/` + x.replaceAll('\/', '_');
       }
     }
     this.newsSource = res;
