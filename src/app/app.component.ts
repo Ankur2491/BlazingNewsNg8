@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-
+import { MatDialog } from '@angular/material/dialog';
+import { SmartReadComponent } from './smart-read/smart-read.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, public dialog: MatDialog) { }
   title = 'BlazingNews';
   newsSource: object;
   loading: boolean;
@@ -160,5 +161,12 @@ export class AppComponent implements OnInit {
   getImage(url: string, x): Promise<any> {
     console.log(x);
     return this.http.post('https://hnews-image.herokuapp.com/image', { 'url': url }).toPromise();
+  }
+
+  openDialog(title, url) {
+    const dialogRef = this.dialog.open(SmartReadComponent, { data: { 'title': title, 'url': url } });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }

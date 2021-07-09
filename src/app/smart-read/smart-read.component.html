@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Smart Read (Experimental)</h2>
+<div align="right">
+  <button mat-button mat-dialog-close>Close</button>
+</div>
+<mat-dialog-content class="mat-typography">
+  <h3>{{data.title}}</h3>
+  <div *ngIf="loading">
+    <img src="assets/img/loading-58.gif">
+  </div>
+  <div *ngFor="let para of content">
+    <p><strong><i>{{para}}</i></strong></p>
+  </div>
+</mat-dialog-content>
+<!-- <mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions> -->

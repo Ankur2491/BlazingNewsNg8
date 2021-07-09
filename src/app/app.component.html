@@ -73,7 +73,8 @@
                         <!-- </figure> -->
                     </div>
                     <p>{{news.description}}</p>
-                    <a href="{{news.url}}" target="_blank">Read More...</a>
+                    <a href="{{news.url}}" target="_blank">Read More...</a>|<span>
+                    <button type="button" class="btn btn-link" (click)="openDialog(news.title,news.url)">"Smart Read"</button></span>
                 </div>
             </div>
         </div>
@@ -110,5 +111,4 @@
         </div>
     </div>
 </body>
-
 </html>
