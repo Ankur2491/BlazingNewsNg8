@@ -8,7 +8,7 @@ import { SmartReadComponent } from './smart-read/smart-read.component';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private http: HttpClient,private modalService: NgbModal) { }
+  constructor(private http: HttpClient, private modalService: NgbModal) { }
   title = 'BlazingNews';
   newsSource: object;
   loading: boolean;
@@ -163,13 +163,14 @@ export class AppComponent implements OnInit {
     return this.http.post('https://hnews-image.herokuapp.com/image', { 'url': url }).toPromise();
   }
 
-  openDialog(title, url) {
+  openDialog(title, url, imgUrl) {
     // const dialogRef = this.dialog.open(SmartReadComponent, { data: { 'title': title, 'url': url } });
     // dialogRef.afterClosed().subscribe(result => {
     //   console.log(`Dialog result: ${result}`);
     // });
+    console.log(imgUrl);
     const modalRef = this.modalService.open(SmartReadComponent);
-    let data = { 'title': title, 'url': url };
+    let data = { 'title': title, 'url': url, 'imgUrl': imgUrl };
     modalRef.componentInstance.data = data;
     modalRef.result.then((result) => {
       console.log(result);
