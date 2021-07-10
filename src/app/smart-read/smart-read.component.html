@@ -10,7 +10,9 @@
   <div *ngIf="loading" align="center">
     <img src="assets/img/loading-58.gif" width="100">
   </div>
+  <hr/>
   <div *ngFor="let para of content">
-    <p><strong><i>{{para}}</i></strong></p>
+    <p style="font-family: 'Droid Serif', serif;">{{para}}</p>
+    <!-- <p><strong><i>{{para}}</i></strong></p> -->
   </div>
 </div>
