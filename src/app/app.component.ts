@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { MatDialog } from '@angular/material/dialog';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SmartReadComponent } from './smart-read/smart-read.component';
 @Component({
   selector: 'app-root',
@@ -8,7 +8,7 @@ import { SmartReadComponent } from './smart-read/smart-read.component';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private http: HttpClient, public dialog: MatDialog) { }
+  constructor(private http: HttpClient,private modalService: NgbModal) { }
   title = 'BlazingNews';
   newsSource: object;
   loading: boolean;
@@ -164,9 +164,19 @@ export class AppComponent implements OnInit {
   }
 
   openDialog(title, url) {
-    const dialogRef = this.dialog.open(SmartReadComponent, { data: { 'title': title, 'url': url } });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+    // const dialogRef = this.dialog.open(SmartReadComponent, { data: { 'title': title, 'url': url } });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   console.log(`Dialog result: ${result}`);
+    // });
+    const modalRef = this.modalService.open(SmartReadComponent);
+    let data = { 'title': title, 'url': url };
+    modalRef.componentInstance.data = data;
+    modalRef.result.then((result) => {
+      console.log(result);
+      // console.log('closed');
+    }).catch((result) => {
+      // console.log(result);
+      // console.log('cancelling');
     });
   }
 }

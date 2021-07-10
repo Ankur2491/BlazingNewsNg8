@@ -289,3 +289,31 @@ color: #333;
 .hide-on-init {
     visibility: hidden;
 }
+
+.btn-link {
+    font-weight: 100;
+    color: #337ab7;
+    border-radius: 0;
+}
+
+a{
+    font-weight: 100;
+    color: #337ab7;
+    border-radius: 0;
+}
+
+.badge {
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: #777;
+    border-radius: 10px;
+    cursor: pointer;
+}

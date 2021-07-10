@@ -64,7 +64,7 @@
                 </div>
                 <div class="collumn" *ngFor="let news of newsSource">
                     <div><span><a href="{{news.url}}" target="_blank"><img class="media" src="{{news.urlToImage}}"
-                               onerror="this.src='./assets/img/Image_not_available.png'"></a></span></div>
+                                    onerror="this.src='./assets/img/Image_not_available.png'"></a></span></div>
                     <div class="head"><span class="headline hl6">{{news.title}}</span>
                         <p><span class="headline hl8">{{news.source}}</span></p>
                         <p><span class="headline hl8">{{news.publishedAt}}</span></p>
@@ -73,8 +73,23 @@
                         <!-- </figure> -->
                     </div>
                     <p>{{news.description}}</p>
-                    <a href="{{news.url}}" target="_blank">Read More...</a>|<span>
-                    <button type="button" class="btn btn-link" (click)="openDialog(news.title,news.url)">"Smart Read"</button></span>
+                    <!-- <div class="container-fluid"> -->
+                        <!-- <div class="row"> -->
+                            <!-- <div class="col-sm-6"> -->
+                                <a href="{{news.url}}" target="_blank">Read More...</a><hr/>
+                            <!-- </div> -->
+                            <!-- <div class="col-sm-6"> -->
+                                <button type="button" class="btn btn-link"
+                                    (click)="openDialog(news.title,news.url)">"Smart Read"</button>
+                            <!-- </div>
+                        </div>
+                    </div> -->
+
+
+
+
+
+
                 </div>
             </div>
         </div>
@@ -111,4 +126,5 @@
         </div>
     </div>
 </body>
+
 </html>

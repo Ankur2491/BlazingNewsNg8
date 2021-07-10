@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'app-smart-read',
   templateUrl: './smart-read.component.html',
@@ -10,10 +11,11 @@ export class SmartReadComponent implements OnInit {
 
   content = [];
   loading = true;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private http: HttpClient) { }
+  @Input() data: object;
+  constructor(public activeModal: NgbActiveModal, private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.post('https://hnews-image.herokuapp.com/smartRead',{'url':this.data.url}).subscribe(res=>{
+    this.http.post('https://hnews-image.herokuapp.com/smartRead', { 'url': this.data['url'] }).subscribe(res => {
       this.content = res['smart'];
       this.loading = false;
     })
