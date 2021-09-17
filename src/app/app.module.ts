@@ -8,6 +8,8 @@ import { DeferLoadModule } from '@trademe/ng-defer-load';
 import { FormsModule } from '@angular/forms';
 import { SmartReadComponent } from './smart-read/smart-read.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {MatCardModule} from '@angular/material/card';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +22,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     FormsModule,
     NgbModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatCardModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],

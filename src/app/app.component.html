@@ -56,42 +56,71 @@
         </div>
     </div>
 
-    <div class="container-fluid" align="center">
-        <div class="content">
-            <div class="collumns">
-                <div class="collumn" *ngIf="newsSource == null && showKeyNews == true">
-                    <h3>Loading...</h3>
-                </div>
-                <div class="collumn" *ngFor="let news of newsSource">
-                    <div><span><a href="{{news.url}}" target="_blank"><img class="media" src="{{news.urlToImage}}"
-                                    onerror="this.src='./assets/img/Image_not_available.png'"></a></span></div>
-                    <div class="head"><span class="headline hl6">{{news.title}}</span>
-                        <p><span class="headline hl8">{{news.source}}</span></p>
-                        <p><span class="headline hl8">{{news.publishedAt}}</span></p>
-                        <!-- <figure class="figure"> -->
+    <div class="container-fluid">
+        <div align="center" *ngIf="newsSource == null && showKeyNews == true">
+            <h3>Loading...</h3>
+        </div> 
+        <div class="row">
+             <!-- <div class="content">
+            <div class="collumns"> -->
+             
+            <div class="col-md-12" *ngFor="let news of newsSource">
+                <mat-card style="width:100%; height:100%; box-sizing: border-box;">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <!-- <mat-card-header> -->
+                                <!-- <mat-card-title>{{news.title}}</mat-card-title>
+                                    <mat-card-subtitle>{{news.source}}</mat-card-subtitle> -->
+                                <img class="img-fluid img-thumbnail" src="{{news.urlToImage}}"
+                                    onerror="this.src='./assets/img/Image_not_available.png'">
+                                <!-- </mat-card-header> -->
 
-                        <!-- </figure> -->
-                    </div>
-                    <p>{{news.description}}</p>
-                    <!-- <div class="container-fluid"> -->
-                    <!-- <div class="row"> -->
-                    <!-- <div class="col-sm-6"> -->
-                    <a href="{{news.url}}" target="_blank">Read More...</a>
-                    <hr />
-                    <!-- </div> -->
-                    <!-- <div class="col-sm-6"> -->
-                    <button type="button" class="btn btn-link"
-                        (click)="openDialog(news.title,news.url,news.urlToImage)">"Smart Read"</button>
-                    <!-- </div>
+                            </div>
+                            <div class="col-md-9 float-left">
+                                <div>
+                                    <h5>{{news.title}}</h5>
+                                    <span>{{news.source}}|</span>
+                                    <span>{{news.publishedAt}}</span>
+                                </div>
+                                <hr />
+                                <p>{{news.description}}</p>
+                                <a href="{{news.url}}" target="_blank">Read source...</a>
+                                <button type="button" class="btn btn-link"
+                                    (click)="openDialog(news.title,news.url,news.urlToImage)">"Smart Read"</button>
+                            </div>
                         </div>
-                    </div> -->
+                    </div>
+                        <hr/>
+
+                </mat-card>
 
 
 
 
 
 
-                </div>
+                <!-- <mat-card>
+                        <mat-card-title-group>
+                            <span><a href="{{news.url}}" target="_blank"><img mat-card-image class="float-left" style="width: 50%;" src="{{news.urlToImage}}" onerror="this.src='./assets/img/Image_not_available.png'"></a></span>
+                        </mat-card-title-group> -->
+                <!-- <div><span><a href="{{news.url}}" target="_blank"><img class="media" src="{{news.urlToImage}}"
+                            onerror="this.src='./assets/img/Image_not_available.png'"></a></span></div>
+            <div class="head"><span class="headline hl6">{{news.title}}</span>
+                <p><span class="headline hl8">{{news.source}}</span></p>
+                <p><span class="headline hl8">{{news.publishedAt}}</span></p>
+                
+            </div>
+            <p>{{news.description}}</p>
+            <a href="{{news.url}}" target="_blank">Read More...</a>
+            <hr />
+ 
+            <button type="button" class="btn btn-link"
+                (click)="openDialog(news.title,news.url,news.urlToImage)">"Smart Read"</button> -->
+                <!-- </mat-card> -->
+
+                <!-- </div>
+            </div> -->
             </div>
         </div>
     </div>

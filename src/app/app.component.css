@@ -153,12 +153,12 @@ p{
     box-sizing: border-box;
     padding: 10px 0 10px 0;
 }
-.collumn .headline.hl6{
+/* .collumn .headline.hl6{
     font-weight: 400;
     font-size: 18px;
     box-sizing: border-box;
     padding: 10px 0 10px 0;
-}
+} */
 .collumn .headline.hl6:before{
     border-top: 1px solid #2f2f2f;
     content: '';
