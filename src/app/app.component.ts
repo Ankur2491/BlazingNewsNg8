@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SmartReadComponent } from './smart-read/smart-read.component';
@@ -8,6 +8,15 @@ import { SmartReadComponent } from './smart-read/smart-read.component';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  @HostListener('window:scroll', ['$event']) 
+   onScroll(event: Event): void {
+     if(window.pageYOffset%20 == 0){
+        this.newsIndex++;
+        console.log(this.newsIndex);
+        this.loadedNews = this.newsSource[this.newsIndex];
+     }
+    // console.log(window.pageYOffset%100,this.newsIndex);
+ }
   constructor(private http: HttpClient, private modalService: NgbModal) { }
   title = 'BlazingNews';
   newsSource: object;
@@ -16,6 +25,7 @@ export class AppComponent implements OnInit {
   keyNews: Array<object>;
   tabIndex: number;
   todaysTime;
+  newsIndex = 1;
   indicator = 'all';
   keyNewsIndicator = false;
   backgroundImg = "";
@@ -25,6 +35,7 @@ export class AppComponent implements OnInit {
   showQuote = false
   showJoke = false
   newsSrcBkp;
+  loadedNews: object;
   imageMap = {};
   searchKey = '';
   sourceMappings = {
@@ -54,11 +65,11 @@ export class AppComponent implements OnInit {
       }
       this.newsSource = res;
       this.newsSrcBkp = res;
-
+      this.loadedNews = res[this.newsIndex];
     })
-    this.http.get('https://blazingnews-api.herokuapp.com/backImg').subscribe(res => {
-      this.backgroundImg = `https://www.bing.com${res['url']}`;
-    })
+    // this.http.get('https://blazingnews-api.herokuapp.com/backImg').subscribe(res => {
+    //   this.backgroundImg = `https://www.bing.com${res['url']}`;
+    // })
     this.fetchKeyNews(0);
     setInterval(() => {
       this.todaysTime = Date.now();
@@ -179,5 +190,13 @@ export class AppComponent implements OnInit {
       // console.log(result);
       // console.log('cancelling');
     });
+  }
+
+  getTwitterNews(){
+    let BEARER_TOKEN='AAAAAAAAAAAAAAAAAAAAACiUigEAAAAATHp%2Fsqmby%2BPaW0mAeoF0BeL0pVM%3Dh2ezcbfT4Al0ez7sby6t4Qkn1oEnL4eC35ZjQeCoRXI29j6ptX'
+    const headers = new HttpHeaders({"Authorization": `Bearer ${BEARER_TOKEN}`});
+    this.http.get(`https://api.twitter.com/2/tweets/search/recent?query=trending`,{headers: headers}).subscribe(data=>{
+      console.log(data);
+    })
   }
 }
