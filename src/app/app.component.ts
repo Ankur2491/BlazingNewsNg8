@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
    onScroll(event: Event): void {
      if(window.pageYOffset%20 == 0){
         this.newsIndex++;
-        console.log(this.newsIndex);
+        // console.log(this.newsIndex);
         this.loadedNews = this.newsSource[this.newsIndex];
      }
     // console.log(window.pageYOffset%100,this.newsIndex);
@@ -48,6 +48,7 @@ export class AppComponent implements OnInit {
   source = 'all'
   refMap = { "all": 0, "general": 1, "business": 2, "entertainment": 3, "health": 4, "science": 5, "technology": 6, "sport": 7, "offbeat": 8 };
   today: number = Date.now();
+  twitterSelected: boolean = false;
   ngOnInit() {
     this.http.get("https://blazingnews-api.herokuapp.com/all").subscribe(async (res: Array<object>) => {
       for (var elem of res) {
@@ -77,15 +78,26 @@ export class AppComponent implements OnInit {
   }
 
   getNews(source) {
-    this.keyNewsIndicator = false;
-    this.indicator = source;
-    this.showKeyNews = true;
-    this.newsSource = null;
-    this.loading = true;
-    this.searchKey = '';
-    this.tabIndex = this.refMap[source];
-    this.sourcePlaceholder = this.sourceMappings[source];
-    this.source = source;
+    if(source == "twitter"){
+      this.twitterSelected = true;
+      this.showKeyNews = false
+      this.newsSource = null
+      this.http.get('https://tech-blogs-aggregator-api.vercel.app/twitter/trending/relevancy').subscribe((resp: any)=>{
+        let ns = [];  
+        for(let ele of resp.data){
+              let newsObj = {};
+              newsObj['source'] = 'Twitter';
+              newsObj['publishedAt'] = ele['created_at'];
+              newsObj['title'] = '';
+              newsObj['description'] = ele['text'];
+              newsObj['urlToImage'] = 'https://cdn.cdnlogo.com/logos/t/96/twitter-icon.svg'
+              ns.push(newsObj);
+          }
+        this.newsSource = ns;
+    })
+    }
+    else{
+    this.twitterSelected = false;
     this.fetchKeyNews(this.refMap[source]);
     this.newsKeys = Object.keys(this.keyNews[this.tabIndex]);
     this.http.get("https://blazingnews-api.herokuapp.com/" + source).subscribe(async (res: Array<object>) => {
@@ -107,6 +119,7 @@ export class AppComponent implements OnInit {
       this.newsSrcBkp = res;
       this.loading = false;
     })
+  }
   }
   async getKeyNews(key: string) {
     this.keyNewsIndicator = true;
@@ -192,11 +205,19 @@ export class AppComponent implements OnInit {
     });
   }
 
-  getTwitterNews(){
-    let BEARER_TOKEN='AAAAAAAAAAAAAAAAAAAAACiUigEAAAAATHp%2Fsqmby%2BPaW0mAeoF0BeL0pVM%3Dh2ezcbfT4Al0ez7sby6t4Qkn1oEnL4eC35ZjQeCoRXI29j6ptX'
-    const headers = new HttpHeaders({"Authorization": `Bearer ${BEARER_TOKEN}`});
-    this.http.get(`https://api.twitter.com/2/tweets/search/recent?query=trending`,{headers: headers}).subscribe(data=>{
-      console.log(data);
+  searchTwitter(){
+    this.http.get(`https://tech-blogs-aggregator-api.vercel.app/twitter/${this.searchKey}/relevancy`).subscribe((resp: any)=>{
+    let ns = [];  
+    for(let ele of resp.data){
+          let newsObj = {};
+          newsObj['source'] = 'Twitter';
+          newsObj['publishedAt'] = ele['created_at'];
+          newsObj['title'] = '';
+          newsObj['description'] = ele['text'];
+          newsObj['urlToImage'] = 'https://cdn.cdnlogo.com/logos/t/96/twitter-icon.svg'
+          ns.push(newsObj);
+      }
+    this.newsSource = ns;
     })
   }
 }
