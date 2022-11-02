@@ -97,6 +97,15 @@ export class AppComponent implements OnInit {
     })
     }
     else{
+    this.keyNewsIndicator = false;
+    this.indicator = source;
+    this.showKeyNews = true;
+    this.newsSource = null;
+    this.loading = true;
+    this.searchKey = '';
+    this.tabIndex = this.refMap[source];
+    this.sourcePlaceholder = this.sourceMappings[source];
+    this.source = source;
     this.twitterSelected = false;
     this.fetchKeyNews(this.refMap[source]);
     this.newsKeys = Object.keys(this.keyNews[this.tabIndex]);
