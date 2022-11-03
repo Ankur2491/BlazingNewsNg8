@@ -86,6 +86,11 @@ export class AppComponent implements OnInit {
         let ns = [];  
         for(let ele of resp.data){
               let newsObj = {};
+              let txt = ele['text'];
+              if(txt.indexOf("https") != -1){
+                let subInd = txt.indexOf("https");
+               newsObj['url'] = txt.substring(subInd, subInd+23);
+              }
               newsObj['source'] = 'Twitter';
               newsObj['publishedAt'] = ele['created_at'];
               newsObj['title'] = '';
@@ -218,13 +223,18 @@ export class AppComponent implements OnInit {
     this.http.get(`https://tech-blogs-aggregator-api.vercel.app/twitter/${this.searchKey}/relevancy`).subscribe((resp: any)=>{
     let ns = [];  
     for(let ele of resp.data){
-          let newsObj = {};
-          newsObj['source'] = 'Twitter';
-          newsObj['publishedAt'] = ele['created_at'];
-          newsObj['title'] = '';
-          newsObj['description'] = ele['text'];
-          newsObj['urlToImage'] = 'https://cdn.cdnlogo.com/logos/t/96/twitter-icon.svg'
-          ns.push(newsObj);
+      let newsObj = {};
+      let txt = ele['text'];
+      if(txt.indexOf("https") != -1){
+        let subInd = txt.indexOf("https");
+       newsObj['url'] = txt.substring(subInd, subInd+23);
+      }
+      newsObj['source'] = 'Twitter';
+      newsObj['publishedAt'] = ele['created_at'];
+      newsObj['title'] = '';
+      newsObj['description'] = ele['text'];
+      newsObj['urlToImage'] = 'https://cdn.cdnlogo.com/logos/t/96/twitter-icon.svg'
+      ns.push(newsObj);
       }
     this.newsSource = ns;
     })

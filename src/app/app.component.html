@@ -97,6 +97,9 @@
                                 </div>
                                 <hr />
                                 <p>{{news.description}}</p>
+                                <div *ngIf="twitterSelected && news.url != undefined">
+                                    <a href="{{news.url}}" target="_blank">Read source...</a>
+                                </div>
                                 <div *ngIf="!twitterSelected">
                                 <a href="{{news.url}}" target="_blank">Read source...</a>
                                 <button type="button" class="btn btn-link"
