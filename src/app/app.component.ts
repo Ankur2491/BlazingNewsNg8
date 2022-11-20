@@ -80,6 +80,7 @@ export class AppComponent implements OnInit {
   getNews(source) {
     if(source == "twitter"){
       this.twitterSelected = true;
+      this.source = source;
       this.showKeyNews = false
       this.newsSource = null
       this.http.get('https://tech-blogs-aggregator-api.vercel.app/twitter/trending/relevancy').subscribe((resp: any)=>{
@@ -168,6 +169,7 @@ export class AppComponent implements OnInit {
   }
 
   getQuote() {
+    this.source='quote'
     this.showQuote = true
     this.showJoke = false
     this.showKeyNews = false;
@@ -180,6 +182,7 @@ export class AppComponent implements OnInit {
   }
 
   getJoke() {
+    this.source='joke'
     this.showQuote = false
     this.showJoke = true
     this.showKeyNews = false
@@ -239,4 +242,23 @@ export class AppComponent implements OnInit {
     this.newsSource = ns;
     })
   }
+
+  // getRedditNews(){
+  //   this.source = 'reddit'
+  //   this.http.get('https://www.reddit.com/r/Damnthatsinteresting/.json').subscribe((resp: any)=>{
+  //     let ns = [];    
+  //     for(let child of resp.data.children){
+  //       let newsObj = {};
+  //       newsObj['title'] = child.data.title;
+  //       newsObj['source'] = 'Reddit';
+  //       newsObj['urlToImage'] = child.data.url;
+  //       newsObj['publishedAt'] = '';
+  //       newsObj['url'] = child.data.url;
+  //       newsObj['description'] ='';
+  //       ns.push(newsObj);
+  //     }
+  //     this.newsSource = ns;
+  //   })
+  // }
+
 }

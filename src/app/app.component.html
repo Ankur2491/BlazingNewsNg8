@@ -23,18 +23,19 @@
         </div>
 
         <div class="subhead">{{todaysTime | date:'medium'}}</div>
-        <div class="subhead"><button type="button" class="btn btn-link" (click)="getNews('all')">INTERNATIONAL</button>
-            <button type="button" class="btn btn-link" (click)="getNews('general')">INDIA</button><button type="button"
-                class="btn btn-link" (click)="getNews('business')">BUSINESS</button><button type="button"
-                class="btn btn-link" (click)="getNews('entertainment')">ENTERTAINMENT</button>
-            <button type="button" class="btn btn-link" (click)="getNews('health')">HEALTH</button>
-            <button type="button" class="btn btn-link" (click)="getNews('science')">SCIENCE</button>
-            <button type="button" class="btn btn-link" (click)="getNews('technology')">TECHNOLOGY</button>
-            <button type="button" class="btn btn-link" (click)="getNews('sport')">SPORT</button><button type="button"
-                class="btn btn-link" (click)="getNews('offbeat')">OFFBEAT</button>
-            <button type="button" class="btn btn-link" (click)="getQuote()">RANDOM QUOTE</button>
-            <button type="button" class="btn btn-link" (click)="getJoke()">RANDOM JOKE</button>
-            <button type="button" class="btn btn-link" (click)="getNews('twitter')">TWITTER</button>
+        <div class="subhead"><button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='all'}" (click)="getNews('all')">INTERNATIONAL</button>
+            <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='general'}" (click)="getNews('general')">INDIA</button><button type="button"
+                class="btn btn-link" [ngClass]="{'boldButton': source=='business'}" (click)="getNews('business')">BUSINESS</button><button type="button"
+                class="btn btn-link" [ngClass]="{'boldButton': source=='entertainment'}" (click)="getNews('entertainment')"><b>ENTERTAINMENT</b></button>
+            <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='health'}" (click)="getNews('health')">HEALTH</button>
+            <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='science'}" (click)="getNews('science')">SCIENCE</button>
+            <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='technology'}" (click)="getNews('technology')">TECHNOLOGY</button>
+            <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='sport'}" (click)="getNews('sport')">SPORT</button><button type="button"
+                class="btn btn-link" [ngClass]="{'boldButton': source=='offbeat'}" (click)="getNews('offbeat')">OFFBEAT</button>
+            <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='quote'}" (click)="getQuote()">RANDOM QUOTE</button>
+            <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='joke'}" (click)="getJoke()">RANDOM JOKE</button>
+            <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='twitter'}" (click)="getNews('twitter')">TWITTER</button>
+            <!-- <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='reddit'}" (click)="getRedditNews()">INTERESTING</button> -->
         </div>
         <div *ngIf="showKeyNews" class="container-fluid">
             <div class="row">
