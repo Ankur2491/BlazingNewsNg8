@@ -50,7 +50,7 @@ export class AppComponent implements OnInit {
   today: number = Date.now();
   twitterSelected: boolean = false;
   ngOnInit() {
-    this.http.get("https://blazingnews-api.herokuapp.com/all").subscribe(async (res: Array<object>) => {
+    this.http.get("https://blazing-news-api.vercel.app/all").subscribe(async (res: Array<object>) => {
       for (var elem of res) {
         elem['source'] = elem['title'].substring(elem['title'].indexOf('(s'));
         elem['title'] = elem['title'].substring(0, elem['title'].indexOf('(s'));
@@ -115,7 +115,7 @@ export class AppComponent implements OnInit {
     this.twitterSelected = false;
     this.fetchKeyNews(this.refMap[source]);
     this.newsKeys = Object.keys(this.keyNews[this.tabIndex]);
-    this.http.get("https://blazingnews-api.herokuapp.com/" + source).subscribe(async (res: Array<object>) => {
+    this.http.get("https://blazing-news-api.vercel.app/" + source).subscribe(async (res: Array<object>) => {
       for (var elem of res) {
         elem['source'] = elem['title'].substring(elem['title'].indexOf('(s'));
         elem['title'] = elem['title'].substring(0, elem['title'].indexOf('(s'));
@@ -158,7 +158,7 @@ export class AppComponent implements OnInit {
   }
 
   fetchKeyNews(index) {
-    this.http.get("https://blazingnews-api.herokuapp.com/keyNews").subscribe((res: Array<object>) => {
+    this.http.get("https://blazing-news-api.vercel.app/keyNews").subscribe((res: Array<object>) => {
       this.keyNews = res;
       this.tabIndex = index;
       this.newsKeys = Object.keys(this.keyNews[this.tabIndex]);
@@ -187,7 +187,7 @@ export class AppComponent implements OnInit {
     this.showJoke = true
     this.showKeyNews = false
     this.newsSource = null
-    this.http.get('https://blazingnews-api.herokuapp.com/joke').subscribe(data => {
+    this.http.get('https://blazing-news-api.vercel.app/joke').subscribe(data => {
       this.jokeObj.joke = data['joke']
     })
   }
