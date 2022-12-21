@@ -15,7 +15,7 @@ export class SmartReadComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal, private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.post('https://hnews-image.herokuapp.com/smartRead', { 'url': this.data['url'] }).subscribe(res => {
+    this.http.post('https://mercury-image-api.vercel.app/smartRead', { 'url': this.data['url'] }).subscribe(res => {
       this.content = res['smart'];
       this.loading = false;
     })
