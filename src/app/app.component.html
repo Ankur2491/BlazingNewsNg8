@@ -32,9 +32,9 @@
             <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='technology'}" (click)="getNews('technology')">TECHNOLOGY</button>
             <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='sport'}" (click)="getNews('sport')">SPORT</button><button type="button"
                 class="btn btn-link" [ngClass]="{'boldButton': source=='offbeat'}" (click)="getNews('offbeat')">OFFBEAT</button>
-            <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='quote'}" (click)="getQuote()">RANDOM QUOTE</button>
-            <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='joke'}" (click)="getJoke()">RANDOM JOKE</button>
-            <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='twitter'}" (click)="getNews('twitter')">TWITTER</button>
+            <!-- <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='quote'}" (click)="getQuote()">RANDOM QUOTE</button> -->
+            <!-- <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='joke'}" (click)="getJoke()">RANDOM JOKE</button> -->
+            <!-- <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='twitter'}" (click)="getNews('twitter')">TWITTER</button> -->
             <!-- <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='reddit'}" (click)="getRedditNews()">INTERESTING</button> -->
         </div>
         <div *ngIf="showKeyNews" class="container-fluid">
@@ -103,8 +103,8 @@
                                 </div>
                                 <div *ngIf="!twitterSelected">
                                 <a href="{{news.url}}" target="_blank">Read source...</a>
-                                <button type="button" class="btn btn-link"
-                                    (click)="openDialog(news.title,news.url,news.urlToImage)">"Smart Read"</button>
+                                <!-- <button type="button" class="btn btn-link"
+                                    (click)="openDialog(news.title,news.url,news.urlToImage)">"Smart Read"</button> -->
                                     </div>
                             </div>
                         </div>

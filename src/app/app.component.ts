@@ -71,7 +71,7 @@ export class AppComponent implements OnInit {
     // this.http.get('https://blazingnews-api.herokuapp.com/backImg').subscribe(res => {
     //   this.backgroundImg = `https://www.bing.com${res['url']}`;
     // })
-    this.fetchKeyNews(0);
+    // this.fetchKeyNews(0);
     setInterval(() => {
       this.todaysTime = Date.now();
     }, 10)
@@ -103,9 +103,9 @@ export class AppComponent implements OnInit {
     })
     }
     else{
-    this.keyNewsIndicator = false;
+    // this.keyNewsIndicator = false;
     this.indicator = source;
-    this.showKeyNews = true;
+    // this.showKeyNews = true;
     this.newsSource = null;
     this.loading = true;
     this.searchKey = '';
@@ -113,8 +113,8 @@ export class AppComponent implements OnInit {
     this.sourcePlaceholder = this.sourceMappings[source];
     this.source = source;
     this.twitterSelected = false;
-    this.fetchKeyNews(this.refMap[source]);
-    this.newsKeys = Object.keys(this.keyNews[this.tabIndex]);
+    // this.fetchKeyNews(this.refMap[source]);
+    // this.newsKeys = Object.keys(this.keyNews[this.tabIndex]);
     this.http.get("https://blazing-news-api.vercel.app/" + source).subscribe(async (res: Array<object>) => {
       for (var elem of res) {
         elem['source'] = elem['title'].substring(elem['title'].indexOf('(s'));
