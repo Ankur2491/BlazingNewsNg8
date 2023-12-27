@@ -50,6 +50,9 @@ export class AppComponent implements OnInit {
   today: number = Date.now();
   twitterSelected: boolean = false;
   ngOnInit() {
+    this.http.get(`https://blazing-news-js-api.onrender.com/getNews`).subscribe(data=>{
+      console.log(data);
+    })
     this.http.get("https://blazing-news-api.vercel.app/all").subscribe(async (res: Array<object>) => {
       for (var elem of res) {
         elem['source'] = elem['title'].substring(elem['title'].indexOf('(s'));
@@ -78,6 +81,9 @@ export class AppComponent implements OnInit {
   }
 
   getNews(source) {
+    this.http.get(`https://blazing-news-js-api.onrender.com/getNews`).subscribe(data=>{
+      console.log(data);
+    })
     if(source == "twitter"){
       this.twitterSelected = true;
       this.source = source;
