@@ -55,6 +55,9 @@ export class AppComponent implements OnInit {
     })
     this.http.get("https://blazing-news-api.vercel.app/all").subscribe(async (res: Array<object>) => {
       for (var elem of res) {
+        let lVal = Date.parse(elem['publishedAt']);
+        const d = new Date(lVal);
+        elem['publishedAt'] = d.toLocaleString();
         elem['source'] = elem['title'].substring(elem['title'].indexOf('(s'));
         elem['title'] = elem['title'].substring(0, elem['title'].indexOf('(s'));
         elem["show"] = false;
@@ -123,6 +126,9 @@ export class AppComponent implements OnInit {
     // this.newsKeys = Object.keys(this.keyNews[this.tabIndex]);
     this.http.get("https://blazing-news-api.vercel.app/" + source).subscribe(async (res: Array<object>) => {
       for (var elem of res) {
+        let lVal = Date.parse(elem['publishedAt']);
+        const d = new Date(lVal);
+        elem['publishedAt'] = d.toLocaleString();
         elem['source'] = elem['title'].substring(elem['title'].indexOf('(s'));
         elem['title'] = elem['title'].substring(0, elem['title'].indexOf('(s'));
         elem["show"] = false;
