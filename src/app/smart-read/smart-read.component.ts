@@ -15,7 +15,7 @@ export class SmartReadComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal, private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.post('https://summariser-js.onrender.com/smartRead', { 'url': this.data['url'] }).subscribe(res:any => {
+    this.http.post('https://summariser-js.onrender.com/smartRead', { 'url': this.data['url'] }).subscribe((res:any) => {
       this.content = res;
       this.loading = false;
     })
