@@ -15,8 +15,8 @@ export class SmartReadComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal, private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.post('https://blazing-news-api.vercel.app/smartRead', { 'url': this.data['url'] }).subscribe(res => {
-      this.content = res['smart'];
+    this.http.post('https://summariser-js.onrender.com/smartRead', { 'url': this.data['url'] }).subscribe(res => {
+      this.content = res;
       this.loading = false;
     })
     // console.log(this.data);
