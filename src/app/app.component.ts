@@ -61,14 +61,20 @@ export class AppComponent implements OnInit {
         elem['source'] = elem['title'].substring(elem['title'].indexOf('(s'));
         elem['title'] = elem['title'].substring(0, elem['title'].indexOf('(s'));
         elem["show"] = false;
-        if (elem["urlToImage"] && elem["urlToImage"].includes("./img")) {
-          let arr = elem["urlToImage"].split("/");
-          elem["urlToImage"] = './assets/img/' + arr[2];
-          let x = elem['url'].replaceAll(':', '_');
-          x = x.replace(/#/g, '_');
-          x = x.replace(/=/g, '_');
-          elem['urlToImage'] = `https://ik.imagekit.io/ap63okuxezn/images/` + x.replace(/\//g, '_');
+        if(elem["urlToImage"] && elem["urlToImage"].includes("resolve")) {
+          this.http.post(`https://blazing-news-api.vercel.app/getImg`, { 'url': elem['url'] }).subscribe(data=>{
+            elem['urlToImage'] = data['imageUrl'];
+          }            
+          );
         }
+        // if (elem["urlToImage"] && elem["urlToImage"].includes("./img")) {
+        //   let arr = elem["urlToImage"].split("/");
+        //   elem["urlToImage"] = './assets/img/' + arr[2];
+        //   let x = elem['url'].replaceAll(':', '_');
+        //   x = x.replace(/#/g, '_');
+        //   x = x.replace(/=/g, '_');
+        //   elem['urlToImage'] = `https://ik.imagekit.io/ap63okuxezn/images/` + x.replace(/\//g, '_');
+        // }
       }
       this.newsSource = res;
       this.newsSrcBkp = res;
@@ -132,15 +138,21 @@ export class AppComponent implements OnInit {
         elem['source'] = elem['title'].substring(elem['title'].indexOf('(s'));
         elem['title'] = elem['title'].substring(0, elem['title'].indexOf('(s'));
         elem["show"] = false;
-        if (elem["urlToImage"] && elem["urlToImage"].includes("./img")) {
-          let arr = elem["urlToImage"].split("/");
-          elem["urlToImage"] = './assets/img/' + arr[2];
-          let x = elem['url'].replace(':', '_');
-          x = x.replace(/#/g, '_');
-          x = x.replace(/=/g, '_');
-          elem['urlToImage'] = `https://ik.imagekit.io/ap63okuxezn/images/` + x.replace(/\//g, '_');
-
+        if(elem["urlToImage"] && elem["urlToImage"].includes("resolve")) {
+          this.http.post(`https://blazing-news-api.vercel.app/getImg`, { 'url': elem['url'] }).subscribe(data=>{
+            elem['urlToImage'] = data['imageUrl'];
+          }            
+          );
         }
+        // if (elem["urlToImage"] && elem["urlToImage"].includes("./img")) {
+        //   let arr = elem["urlToImage"].split("/");
+        //   elem["urlToImage"] = './assets/img/' + arr[2];
+        //   let x = elem['url'].replace(':', '_');
+        //   x = x.replace(/#/g, '_');
+        //   x = x.replace(/=/g, '_');
+        //   elem['urlToImage'] = `https://ik.imagekit.io/ap63okuxezn/images/` + x.replace(/\//g, '_');
+
+        // }
       }
       this.newsSource = res;
       this.newsSrcBkp = res;
