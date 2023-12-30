@@ -58,12 +58,12 @@ export class AppComponent implements OnInit {
         elem['source'] = elem['title'].substring(elem['title'].indexOf('(s'));
         elem['title'] = elem['title'].substring(0, elem['title'].indexOf('(s'));
         elem["show"] = false;
-        if(elem["urlToImage"] && elem["urlToImage"].includes("resolve")) {
-          this.http.post(`https://summariser-js.vercel.app/getImg`, { 'url': elem['url'] }).subscribe(data=>{
-            elem['urlToImage'] = data['imageUrl'];
-          }            
-          );
-        }
+        // if(elem["urlToImage"] && elem["urlToImage"].includes("resolve")) {
+        //   this.http.post(`https://summariser-js.vercel.app/getImg`, { 'url': elem['url'] }).subscribe(data=>{
+        //     elem['urlToImage'] = data['imageUrl'];
+        //   }            
+        //   );
+        // }
         // if (elem["urlToImage"] && elem["urlToImage"].includes("./img")) {
         //   let arr = elem["urlToImage"].split("/");
         //   elem["urlToImage"] = './assets/img/' + arr[2];
@@ -132,12 +132,12 @@ export class AppComponent implements OnInit {
         elem['source'] = elem['title'].substring(elem['title'].indexOf('(s'));
         elem['title'] = elem['title'].substring(0, elem['title'].indexOf('(s'));
         elem["show"] = false;
-        if(elem["urlToImage"] && elem["urlToImage"].includes("resolve")) {
-          this.http.post(`https://summariser-js.vercel.app/getImg`, { 'url': elem['url'] }).subscribe(data=>{
-            elem['urlToImage'] = data['imageUrl'];
-          }            
-          );
-        }
+        // if(elem["urlToImage"] && elem["urlToImage"].includes("resolve")) {
+        //   this.http.post(`https://summariser-js.vercel.app/getImg`, { 'url': elem['url'] }).subscribe(data=>{
+        //     elem['urlToImage'] = data['imageUrl'];
+        //   }            
+        //   );
+        // }
         // if (elem["urlToImage"] && elem["urlToImage"].includes("./img")) {
         //   let arr = elem["urlToImage"].split("/");
         //   elem["urlToImage"] = './assets/img/' + arr[2];
