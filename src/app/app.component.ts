@@ -59,7 +59,7 @@ export class AppComponent implements OnInit {
         elem['title'] = elem['title'].substring(0, elem['title'].indexOf('(s'));
         elem["show"] = false;
         if(elem["urlToImage"] && elem["urlToImage"].includes("resolve")) {
-          this.http.post(`https://blazing-news-api.vercel.app/getImg`, { 'url': elem['url'] }).subscribe(data=>{
+          this.http.post(`https://summariser-js.vercel.app/getImg`, { 'url': elem['url'] }).subscribe(data=>{
             elem['urlToImage'] = data['imageUrl'];
           }            
           );
@@ -133,7 +133,7 @@ export class AppComponent implements OnInit {
         elem['title'] = elem['title'].substring(0, elem['title'].indexOf('(s'));
         elem["show"] = false;
         if(elem["urlToImage"] && elem["urlToImage"].includes("resolve")) {
-          this.http.post(`https://blazing-news-api.vercel.app/getImg`, { 'url': elem['url'] }).subscribe(data=>{
+          this.http.post(`https://summariser-js.vercel.app/getImg`, { 'url': elem['url'] }).subscribe(data=>{
             elem['urlToImage'] = data['imageUrl'];
           }            
           );
