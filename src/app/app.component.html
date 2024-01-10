@@ -30,8 +30,14 @@
             <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='health'}" (click)="getNews('health')">HEALTH</button>
             <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='science'}" (click)="getNews('science')">SCIENCE</button>
             <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='technology'}" (click)="getNews('technology')">TECHNOLOGY</button>
-            <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='sport'}" (click)="getNews('sport')">SPORT</button><button type="button"
-                class="btn btn-link" [ngClass]="{'boldButton': source=='offbeat'}" (click)="getNews('offbeat')">OFFBEAT</button>
+            <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='sport'}" (click)="getNews('sport')">SPORT</button>
+            <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='offbeat'}" (click)="getNews('offbeat')">OFFBEAT</button>
+            <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='positive'}" (click)="getNews('positive')">POSITIVE NEWS</button>
+            <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='negative'}" (click)="getNews('negative')">NEGATIVE NEWS</button>
+                <!-- <select class="form-select" aria-label="Default select example" (change)="fetchStateNews($event)">
+                    <option selected>Select a state</option>
+                    <option *ngFor="let state of states" [value]="state">{{state}}</option>
+                  </select> -->
             <!-- <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='quote'}" (click)="getQuote()">RANDOM QUOTE</button> -->
             <!-- <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='joke'}" (click)="getJoke()">RANDOM JOKE</button> -->
             <!-- <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='twitter'}" (click)="getNews('twitter')">TWITTER</button> -->

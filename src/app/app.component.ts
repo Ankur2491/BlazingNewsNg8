@@ -49,6 +49,7 @@ export class AppComponent implements OnInit {
   refMap = { "all": 0, "general": 1, "business": 2, "entertainment": 3, "health": 4, "science": 5, "technology": 6, "sport": 7, "offbeat": 8 };
   today: number = Date.now();
   twitterSelected: boolean = false;
+  // states = ["Uttar Pradesh", "Uttarakhand", "Chhatisgarh", "Jammu and Kashmir", "Jharkhand", "Delhi", "Punjab", "West Bengal", "Bihar", "Madhya Pradesh", "Maharashtra", "Rajasthan", "Haryana", "Himachal Pradesh"];
   ngOnInit() {
     this.http.get("https://blazing-news-api.vercel.app/all").subscribe(async (res: Array<object>) => {
       for (var elem of res) {
@@ -84,10 +85,51 @@ export class AppComponent implements OnInit {
     setInterval(() => {
       this.todaysTime = Date.now();
     }, 10)
+    // this.states.sort();
   }
 
+  // fetchStateNews(event) {
+  //   this.http.get(`https://www.amarujala.com/rss/${event.target.value}.xml`, {responseType:'text'}).subscribe(data=> {
+  //     console.log(data);
+  //   })
+  // }
+
   getNews(source) {
-    if(source == "twitter"){
+    if(source == "positive") {
+      this.source = source;
+      this.sourcePlaceholder = "Positive"
+      this.http.get("https://blazing-news-api.vercel.app/positiveNews").subscribe(async (res: Array<object>) => {
+        for (var elem of res) {
+          let lVal = Date.parse(elem['publishedAt']);
+          const d = new Date(lVal);
+          elem['publishedAt'] = d.toLocaleString();
+          elem['source'] = elem['title'].substring(elem['title'].indexOf('(s'));
+          elem['title'] = elem['title'].substring(0, elem['title'].indexOf('(s'));
+          elem["show"] = false;
+        }
+        this.newsSource = res;
+        this.newsSrcBkp = res;
+        this.loading = false;
+      })
+    }
+    else if(source == "negative") {
+      this.source = source;
+      this.sourcePlaceholder = "Negative"
+      this.http.get("https://blazing-news-api.vercel.app/negativeNews").subscribe(async (res: Array<object>) => {
+        for (var elem of res) {
+          let lVal = Date.parse(elem['publishedAt']);
+          const d = new Date(lVal);
+          elem['publishedAt'] = d.toLocaleString();
+          elem['source'] = elem['title'].substring(elem['title'].indexOf('(s'));
+          elem['title'] = elem['title'].substring(0, elem['title'].indexOf('(s'));
+          elem["show"] = false;
+        }
+        this.newsSource = res;
+        this.newsSrcBkp = res;
+        this.loading = false;
+      })
+    }
+    else if(source == "twitter"){
       this.twitterSelected = true;
       this.source = source;
       this.showKeyNews = false
