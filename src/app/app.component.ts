@@ -331,7 +331,7 @@ export class AppComponent implements OnInit {
     this.newsSource = null;
     if(this.factObj.hasOwnProperty('facts'))
       return;
-    this.http.get(`http://localhost:3000/interestingFacts`).subscribe((res: any)=>{
+    this.http.get(`https://blazing-news-api.vercel.app/interestingFacts`).subscribe((res: any)=>{
       console.log("here");
       this.factObj = res;
     })
