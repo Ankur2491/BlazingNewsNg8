@@ -34,6 +34,7 @@
             <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='offbeat'}" (click)="getNews('offbeat')">OFFBEAT</button>
             <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='positive'}" (click)="getNews('positive')">POSITIVE NEWS</button>
             <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='negative'}" (click)="getNews('negative')">NEGATIVE NEWS</button>
+            <button type="button" class="btn btn-link" [ngClass]="{'boldButton': source=='facts'}" (click)="getFacts()">INTERESTING</button>
                 <!-- <select class="form-select" aria-label="Default select example" (change)="fetchStateNews($event)">
                     <option selected>Select a state</option>
                     <option *ngFor="let state of states" [value]="state">{{state}}</option>
@@ -179,6 +180,22 @@
             </div>
         </div>
     </div>
+    <div *ngIf="showKeyNews == false && showFacts == true && factObj.facts" class="container-fluid">
+        <div class="row">
+            <div align="center">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Interesting (Powered by Google Gemini)</h3>
+                    </div>
+                    <hr />
+                    <div class="card-body">
+                        <h4 class="card-text">{{factObj.facts}}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>

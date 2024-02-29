@@ -31,9 +31,11 @@ export class AppComponent implements OnInit {
   backgroundImg = "";
   quoteObj = { 'quote': '', 'author': '' };
   jokeObj = { 'joke': '' };
+  factObj = {};
   showKeyNews = true
   showQuote = false
   showJoke = false
+  showFacts = false
   newsSrcBkp;
   loadedNews: object;
   imageMap = {};
@@ -95,6 +97,8 @@ export class AppComponent implements OnInit {
   // }
 
   getNews(source) {
+    this.showFacts = false;
+    this.showKeyNews = true;
     if(source == "positive") {
       this.source = source;
       this.sourcePlaceholder = "Positive"
@@ -320,5 +324,17 @@ export class AppComponent implements OnInit {
   //     this.newsSource = ns;
   //   })
   // }
+
+  getFacts() {
+    this.showFacts = true;
+    this.showKeyNews = false;
+    this.newsSource = null;
+    if(this.factObj.hasOwnProperty('facts'))
+      return;
+    this.http.get(`http://localhost:3000/interestingFacts`).subscribe((res: any)=>{
+      console.log("here");
+      this.factObj = res;
+    })
+  }
 
 }
