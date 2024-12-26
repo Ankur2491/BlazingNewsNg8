@@ -78,7 +78,7 @@ export class AppComponent implements OnInit {
         //   elem['urlToImage'] = `https://ik.imagekit.io/ap63okuxezn/images/` + x.replace(/\//g, '_');
         // }
       }
-      this.http.post(`http://localhost:3000/prepareKeyNews`, { 'newsArr': res }).subscribe(data=>{
+      this.http.post(`https://blazing-news-api.vercel.app/prepareKeyNews`, { 'newsArr': res }).subscribe(data=>{
             this.keyNewsWords = data['keyNews'];
           });            
       this.newsSource = res;
@@ -116,7 +116,7 @@ export class AppComponent implements OnInit {
           elem['title'] = elem['title'].substring(0, elem['title'].indexOf('(s'));
           elem["show"] = false;
         }
-        this.http.post(`http://localhost:3000/prepareKeyNews`, { 'newsArr': res }).subscribe(data=>{
+        this.http.post(`https://blazing-news-api.vercel.app/prepareKeyNews`, { 'newsArr': res }).subscribe(data=>{
           this.keyNewsWords = data['keyNews'];
         });       
         this.newsSource = res;
@@ -136,7 +136,7 @@ export class AppComponent implements OnInit {
           elem['title'] = elem['title'].substring(0, elem['title'].indexOf('(s'));
           elem["show"] = false;
         }
-        this.http.post(`http://localhost:3000/prepareKeyNews`, { 'newsArr': res }).subscribe(data=>{
+        this.http.post(`https://blazing-news-api.vercel.app/prepareKeyNews`, { 'newsArr': res }).subscribe(data=>{
           this.keyNewsWords = data['keyNews'];
         });       
         this.newsSource = res;
@@ -205,7 +205,7 @@ export class AppComponent implements OnInit {
 
         // }
       }
-      this.http.post(`http://localhost:3000/prepareKeyNews`, { 'newsArr': res }).subscribe(data=>{
+      this.http.post(`https://blazing-news-api.vercel.app/prepareKeyNews`, { 'newsArr': res }).subscribe(data=>{
         this.keyNewsWords = data['keyNews'];
       });       
       this.newsSource = res;
