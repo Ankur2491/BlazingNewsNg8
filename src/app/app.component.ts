@@ -51,6 +51,8 @@ export class AppComponent implements OnInit {
   refMap = { "all": 0, "general": 1, "business": 2, "entertainment": 3, "health": 4, "science": 5, "technology": 6, "sport": 7, "offbeat": 8 };
   today: number = Date.now();
   twitterSelected: boolean = false;
+  keyNewsWords: Array<string>;
+  selectedKeyWord: string;
   // states = ["Uttar Pradesh", "Uttarakhand", "Chhatisgarh", "Jammu and Kashmir", "Jharkhand", "Delhi", "Punjab", "West Bengal", "Bihar", "Madhya Pradesh", "Maharashtra", "Rajasthan", "Haryana", "Himachal Pradesh"];
   ngOnInit() {
     this.http.get("https://blazing-news-api.vercel.app/all").subscribe(async (res: Array<object>) => {
@@ -76,6 +78,9 @@ export class AppComponent implements OnInit {
         //   elem['urlToImage'] = `https://ik.imagekit.io/ap63okuxezn/images/` + x.replace(/\//g, '_');
         // }
       }
+      this.http.post(`http://localhost:3000/prepareKeyNews`, { 'newsArr': res }).subscribe(data=>{
+            this.keyNewsWords = data['keyNews'];
+          });            
       this.newsSource = res;
       this.newsSrcBkp = res;
       this.loadedNews = res[this.newsIndex];
@@ -111,6 +116,9 @@ export class AppComponent implements OnInit {
           elem['title'] = elem['title'].substring(0, elem['title'].indexOf('(s'));
           elem["show"] = false;
         }
+        this.http.post(`http://localhost:3000/prepareKeyNews`, { 'newsArr': res }).subscribe(data=>{
+          this.keyNewsWords = data['keyNews'];
+        });       
         this.newsSource = res;
         this.newsSrcBkp = res;
         this.loading = false;
@@ -128,6 +136,9 @@ export class AppComponent implements OnInit {
           elem['title'] = elem['title'].substring(0, elem['title'].indexOf('(s'));
           elem["show"] = false;
         }
+        this.http.post(`http://localhost:3000/prepareKeyNews`, { 'newsArr': res }).subscribe(data=>{
+          this.keyNewsWords = data['keyNews'];
+        });       
         this.newsSource = res;
         this.newsSrcBkp = res;
         this.loading = false;
@@ -160,7 +171,7 @@ export class AppComponent implements OnInit {
     else{
     // this.keyNewsIndicator = false;
     this.indicator = source;
-    // this.showKeyNews = true;
+    this.showKeyNews = true;
     this.newsSource = null;
     this.loading = true;
     this.searchKey = '';
@@ -194,31 +205,54 @@ export class AppComponent implements OnInit {
 
         // }
       }
+      this.http.post(`http://localhost:3000/prepareKeyNews`, { 'newsArr': res }).subscribe(data=>{
+        this.keyNewsWords = data['keyNews'];
+      });       
       this.newsSource = res;
       this.newsSrcBkp = res;
       this.loading = false;
     })
   }
   }
-  async getKeyNews(key: string) {
-    this.keyNewsIndicator = true;
-    let news = this.keyNews[this.tabIndex];
-    let res = news[key];
-    this.newsSource = [];
-    for (var elem of res) {
-      elem['source'] = elem['title'].substring(elem['title'].indexOf('(s'));
-      elem['title'] = elem['title'].substring(0, elem['title'].indexOf('(s'));
-      elem["show"] = false;
-      if (elem["urlToImage"] && elem["urlToImage"].includes("./img")) {
-        let arr = elem["urlToImage"].split("/");
-        elem["urlToImage"] = './assets/img/' + arr[2];
-        let x = elem['url'].replace(':', '_');
-        x = x.replace(/#/g, '_');
-        x = x.replace(/=/g, '_');
-        elem['urlToImage'] = `https://ik.imagekit.io/ap63okuxezn/images/` + x.replace(/\//g, '_');
+  // async getKeyNews(key: string) {
+  //   this.keyNewsIndicator = true;
+  //   let news = this.keyNews[this.tabIndex];
+  //   let res = news[key];
+  //   this.newsSource = [];
+  //   for (var elem of res) {
+  //     elem['source'] = elem['title'].substring(elem['title'].indexOf('(s'));
+  //     elem['title'] = elem['title'].substring(0, elem['title'].indexOf('(s'));
+  //     elem["show"] = false;
+  //     if (elem["urlToImage"] && elem["urlToImage"].includes("./img")) {
+  //       let arr = elem["urlToImage"].split("/");
+  //       elem["urlToImage"] = './assets/img/' + arr[2];
+  //       let x = elem['url'].replace(':', '_');
+  //       x = x.replace(/#/g, '_');
+  //       x = x.replace(/=/g, '_');
+  //       elem['urlToImage'] = `https://ik.imagekit.io/ap63okuxezn/images/` + x.replace(/\//g, '_');
+  //     }
+  //   }
+  //   this.newsSource = res;
+  // }
+
+  getKeyNews(key: string) {
+    if (key != this.selectedKeyWord) {
+      this.selectedKeyWord = key;
+      let allNews: any = this.newsSrcBkp;
+      let filteredNews = [];
+      for (let news of allNews) {
+        if (news['title'].toLowerCase().includes(key.toLowerCase())) {
+          console.log(news);
+          filteredNews.push(news);
+        }
       }
+      this.newsSource = [];
+      this.newsSource = filteredNews;
     }
-    this.newsSource = res;
+    else {
+      this.selectedKeyWord = "";
+      this.newsSource = this.newsSrcBkp;
+    }
   }
 
   fetchKeyNews(index) {

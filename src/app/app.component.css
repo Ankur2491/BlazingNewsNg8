@@ -38,6 +38,11 @@ p{
     text-decoration: underline overline;
     background-color: rgb(233, 237, 233);
 }
+
+.selectedKeyWordClass {
+    background-color: blue !important;
+
+}
 .weatherforcastbox{
     position: relative;
     width: 12%;
