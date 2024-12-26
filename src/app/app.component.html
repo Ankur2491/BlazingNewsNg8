@@ -46,7 +46,7 @@
         </div>
         <div *ngIf="showKeyNews" class="container-fluid">
             <div class="row">
-                <div class="col-md-3 col-xs-4" *ngFor="let key of keyNewsWords">
+                <div class="col-md-3 col-3" *ngFor="let key of keyNewsWords">
                     <a class="badge badge-primary" [ngClass]="{'selectedKeyWordClass': selectedKeyWord==key}" (click)="getKeyNews(key)">{{key}}</a>
                 </div>
             </div>
