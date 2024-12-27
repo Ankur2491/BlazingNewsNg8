@@ -205,6 +205,7 @@ export class AppComponent implements OnInit {
 
         // }
       }
+      this.keyNewsWords = [];
       this.http.post(`https://blazing-news-api.vercel.app/prepareKeyNews`, { 'newsArr': res }).subscribe(data=>{
         this.keyNewsWords = data['keyNews'];
       });       
