@@ -104,6 +104,7 @@ export class AppComponent implements OnInit {
   getNews(source) {
     this.showFacts = false;
     this.showKeyNews = true;
+    this.selectedKeyWord = "";
     if(source == "positive") {
       this.source = source;
       this.sourcePlaceholder = "Positive"
