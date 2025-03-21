@@ -3,3 +3,6 @@
     height: 80vh;
     overflow-y: auto;
 }
+button {
+    outline: none;
+}
